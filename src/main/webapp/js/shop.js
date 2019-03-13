@@ -11,7 +11,7 @@
 
 
 ******************************/
-
+loadProducten();
 $(document).ready(function()
 {
 	"use strict";
@@ -63,7 +63,7 @@ $(document).ready(function()
 			header.removeClass('scrolled');
 		}
 	}
-
+	
 	/* 
 
 	3. Init Menu
@@ -138,3 +138,38 @@ $(document).ready(function()
 	}
 
 });
+
+function loadProducten() {
+	  fetch("restservices/producten")
+	  .then(response => response.json())
+	  .then(function(myJson) {
+		 var tabel = document.getElementById("tabel");
+		 
+		 for (const object of myJson) {
+			 var rij = tabel.insertRow(1);
+			 
+			 var cell1 = rij.insertCell(0);
+			 var cell2 = rij.insertCell(1);
+			 var cell3 = rij.insertCell(2);
+			 var cell4 = rij.insertCell(3);
+			 var cell5 = rij.insertCell(4);
+			 var cell6 = rij.insertCell(5);
+			 var cell7 = rij.insertCell(6);
+			 var cell8 = rij.insertCell(7);
+			 var cell9 = rij.insertCell(8);
+			 
+			 cell1.innerHTML = object.productnr;
+			 cell2.innerHTML = object.naam;
+			 cell3.innerHTML = '€' + object.inkoopprijs.toFixed(2);
+			 cell4.innerHTML = '€' + object.verkoopprijs.toFixed(2);
+			 cell5.innerHTML = object.categorie;
+			 cell6.innerHTML = object.voorraad;
+			 cell7.innerHTML = object.levnr;
+			 cell8.innerHTML = object.levnr;
+			 cell9.innerHTML = '<input class="koopbtn" id="'+ object.productnr + '" type="submit" value="Koop">';
+			 
+			 valueWijzig.addEventListener("click", sessionStorage.setItem(object.productnr));
+			 
+		 }
+	  });
+}
