@@ -23,25 +23,24 @@ public class OpvangResource {
 	@Path("/jersey/{param}")
 	public Response getMsg(@PathParam("param") int msg) {
 		
-//		System.out.println("hier");
-//		String output = "Jersey says " + msg;
+//		ArtikelService service = ServiceProvider.getArtikelService();
+//		JsonArrayBuilder jab = Json.createArrayBuilder();
+//		for (Artikel a : service.geefAlleArtikelen()) {
+//			if (a.getId() == msg) {
+//				JsonObjectBuilder job = Json.createObjectBuilder();
+//				job.add("id", a.getId());
+//				job.add("naam", a.getNaam());
+//				job.add("artiest", a.getArtiest());
+//				job.add("prijs", a.getPrijs());
+//				job.add("categorie", a.getCategorie());
+//				job.add("uitgavejaar", a.getUitgavejaar());
+//				job.add("beschrijving", a.getBeschrijving());
+//				job.add("cover", a.getCover());
+//				jab.add(job);
+//			} break;
+//		}
 		
-		ArtikelService service = ServiceProvider.getArtikelService();
 		JsonArrayBuilder jab = Json.createArrayBuilder();
-		for (Artikel a : service.geefAlleArtikelen()) {
-			if (a.getId() == msg) {
-				JsonObjectBuilder job = Json.createObjectBuilder();
-				job.add("id", a.getId());
-				job.add("naam", a.getNaam());
-				job.add("artiest", a.getArtiest());
-				job.add("prijs", a.getPrijs());
-				job.add("categorie", a.getCategorie());
-				job.add("uitgavejaar", a.getUitgavejaar());
-				job.add("beschrijving", a.getBeschrijving());
-				job.add("cover", a.getCover());
-				jab.add(job);
-			} break;
-		}
 		JsonArray array = jab.build();
 		
 		return Response.status(200).entity(array.toString()).build();
