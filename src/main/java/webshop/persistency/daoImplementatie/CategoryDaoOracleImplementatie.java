@@ -13,7 +13,7 @@ import webshop.persistency.dao.CategoryDao;
 
 public class CategoryDaoOracleImplementatie extends Tooldatabase implements CategoryDao {
 
-	public List<Category> geefAlleCategorieÃ«n() throws SQLException {
+	public List<Category> geefAlleCategoriën() throws SQLException {
 		List<Category> mijnCategory = new ArrayList<Category>();
 		Connection con = super.getConnection();
 		Statement st= con.createStatement();
