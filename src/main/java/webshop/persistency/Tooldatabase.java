@@ -15,7 +15,7 @@ public class Tooldatabase {
 			}
 			try {
 				con = DriverManager.getConnection(
-				"jdbc:oracle:thin:@ondora04.hu.nl:8521/educ36","martijn","Jayisgay123");
+						"jdbc:oracle:thin:@localhost:1521:xe","WEBSHOPADMIN","ADMIN");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
