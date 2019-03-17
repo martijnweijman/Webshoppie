@@ -7,7 +7,7 @@ import webshop.domain.Category;
 
 public interface CategoryDao {
 	
-	List<Category> geefAlleCategorieÃ«n() throws SQLException;
+	List<Category> geefAlleCategoriën() throws SQLException;
 	Category geefMijnCategory(String naam) throws SQLException;
 
 }
