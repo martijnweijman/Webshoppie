@@ -8,7 +8,7 @@ public class Product {
 	private String cover;
 	private int uitgavejaar;
 	private String productBeschrijving;
-	private int productPrijs;
+	private double productPrijs;
 	private Aanbieding mijnAanbieding;
 	private Category mijnCategory;
 	
@@ -55,7 +55,7 @@ public class Product {
 		this.productBeschrijving = productBeschrijving;
 	}
 
-	public int getProductPrijs() {
+	public double getProductPrijs() {
 		return productPrijs;
 	}
 
