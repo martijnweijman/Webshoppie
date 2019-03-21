@@ -4,7 +4,6 @@ public class Product {
 	
 	private int productID;
 	private String productNaam;
-	private String albumNaam;
 	private String artiest;
 	private String cover;
 	private int uitgavejaar;
@@ -14,12 +13,11 @@ public class Product {
 	private Category mijnCategory;
 	
 
-	public Product(int productID,String productNaam, String albumNaam, String artiest, String cover, int uitgavejaar,
+	public Product(int productID,String productNaam, String artiest, String cover, int uitgavejaar,
 			String productBeschrijving, int productPrijs) {
 		super();
 		this.productID = productID;
 		this.productNaam = productNaam;
-		this.albumNaam = albumNaam;
 		this.artiest = artiest;
 		this.cover = cover;
 		this.uitgavejaar = uitgavejaar;
@@ -27,12 +25,11 @@ public class Product {
 		this.productPrijs = productPrijs;
 	}
 
-	public Product(int productID,String productNaam, String albumNaam, String artiest, String cover, int uitgavejaar,
+	public Product(int productID,String productNaam, String artiest, String cover, int uitgavejaar,
 			String productBeschrijving, int productPrijs, Aanbieding mijnAanbieding, Category mijnCategory) {
 		super();
 		this.productID = productID;
 		this.productNaam = productNaam;
-		this.albumNaam = albumNaam;
 		this.artiest = artiest;
 		this.cover = cover;
 		this.uitgavejaar = uitgavejaar;
@@ -80,14 +77,6 @@ public class Product {
 
 	public void setMijnCategory(Category mijnCategory) {
 		this.mijnCategory = mijnCategory;
-	}
-
-	public String getAlbumNaam() {
-		return albumNaam;
-	}
-
-	public void setAlbumNaam(String albumNaam) {
-		this.albumNaam = albumNaam;
 	}
 
 	public String getArtiest() {
