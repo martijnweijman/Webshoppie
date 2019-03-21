@@ -1,5 +1,7 @@
 package com.jersey;
 
+import java.sql.SQLException;
+
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -12,8 +14,11 @@ import javax.ws.rs.core.Response;
 
 import com.artikel.ArtikelService;
 
-import com.artikel.Artikel;
 import com.artikel.ServiceProvider;
+
+import webshop.domain.Product;
+import webshop.persistency.dao.ProductDao;
+import webshop.persistency.daoImplementatie.ProductDaoOracleImplementatie;
 
 @Path("msg")
 public class OpvangResource {
@@ -21,29 +26,31 @@ public class OpvangResource {
 	@GET
 	@Produces("application/json")
 	@Path("/jersey/{param}")
-	public Response getMsg(@PathParam("param") int msg) {
-		
-//		System.out.println("hier");
-//		String output = "Jersey says " + msg;
-		
-		ArtikelService service = ServiceProvider.getArtikelService();
+	public Response getMsg(@PathParam("param") int msg) throws SQLException {
+
+//		ArtikelService service = ServiceProvider.getArtikelService();
 		JsonArrayBuilder jab = Json.createArrayBuilder();
-		for (Artikel a : service.geefAlleArtikelen()) {
-			if (a.getId() == msg) {
+		ProductDao prdD = new ProductDaoOracleImplementatie();
+		for (Product p : prdD.geefAlleProducten()) {
+			if (p.getProductID() == msg) {
+				System.out.println(p.getProductNaam());
 				JsonObjectBuilder job = Json.createObjectBuilder();
-				job.add("id", a.getId());
-				job.add("naam", a.getNaam());
-				job.add("artiest", a.getArtiest());
-				job.add("prijs", a.getPrijs());
-				job.add("categorie", a.getCategorie());
-				job.add("uitgavejaar", a.getUitgavejaar());
-				job.add("beschrijving", a.getBeschrijving());
-				job.add("cover", a.getCover());
+				job.add("id", p.getProductID());
+				job.add("naam", p.getProductNaam());
+				job.add("artiest", p.getArtiest());
+				job.add("prijs", p.getProductPrijs());
+//				job.add("categorie", p.getMijnCategory().getNaam());
+				job.add("uitgavejaar", p.getUitgavejaar());
+				job.add("beschrijving", p.getProductBeschrijving());
+//				job.add("cover", p.getCover());
+//				job.add("aanbieding", p.getMijnAanbieding());
 				jab.add(job);
-			} break;
+			}
+			break;
 		}
+
 		JsonArray array = jab.build();
-		
+
 		return Response.status(200).entity(array.toString()).build();
 
 	}

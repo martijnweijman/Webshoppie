@@ -19,7 +19,7 @@ public class ProductDaoOracleImplementatie extends Tooldatabase implements Produ
 		Statement st= con.createStatement();
 		ResultSet rsProduct=st.executeQuery("select * from Product");
 		while(rsProduct.next()) {
-			mijnProduct.add(new Product(rsProduct.getInt(1), rsProduct.getString(9), rsProduct.getString(2), rsProduct.getString(5), rsProduct.getString(7), rsProduct.getInt(8), rsProduct.getString(6),rsProduct.getInt(3)));
+			mijnProduct.add(new Product(rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(5), rsProduct.getString(7), rsProduct.getInt(8), rsProduct.getString(6),rsProduct.getInt(3)));
 		}
 		rsProduct.close();
 		con.close();
@@ -32,7 +32,7 @@ public class ProductDaoOracleImplementatie extends Tooldatabase implements Produ
 		Statement st= con.createStatement();
 		ResultSet rsProduct=st.executeQuery("select * from Product where PRODUCTID = '" + id +"'");
 		while(rsProduct.next()) {
-			mijnProduct = new Product(rsProduct.getInt(1), rsProduct.getString(9), rsProduct.getString(2), rsProduct.getString(5), rsProduct.getString(7), rsProduct.getInt(8), rsProduct.getString(6),rsProduct.getInt(3));
+			mijnProduct = new Product(rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(5), rsProduct.getString(7), rsProduct.getInt(8), rsProduct.getString(6),rsProduct.getInt(3));
 		}
 		rsProduct.close();
 		con.close();
