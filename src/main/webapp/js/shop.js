@@ -139,6 +139,19 @@ $(document).ready(function()
 
 });
 
+var modal = document.getElementById('myModal');
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+
+ span.onclick = function() {
+     modal.style.display = "none";
+ }
+ window.onclick = function(event) {
+     if (event.target == modal) {
+         modal.style.display = "none";
+     }
+ }
+
 function loadProducten() {
 	  fetch("rest/msg/producten")
 	  .then(response => response.json())
@@ -188,39 +201,41 @@ function redirectFunc(){
 
 function wijzigFunc(){
  	modal.style.display = "block";
- 	fetch("rest/msg/" + this.id)
+ 	fetch("rest/msg/"+ this.id)
  	.then(response => response.json())
  	.then(function(myJson){
+		 for (const object of myJson) {
 	 	document.getElementById("wijzigGegevens").innerHTML = '<h2> Artikel Wijzigen</h2>';
- 		document.getElementById("wijzigGegevens").innerHTML += 'Product ID: <input id="productnr" name="productnr" type="text" value="'+ myJson.id +  '" readonly><br><br>';
- 		document.getElementById("wijzigGegevens").innerHTML += 'Songnaam: <input name="songnaam" type="text" value="'+ myJson.naam +  '"><br><br>';
- 		document.getElementById("wijzigGegevens").innerHTML += 'Cover: <input name="cover" type="text" value="'+ myJson.cover +  '"><br><br>';
- 		document.getElementById("wijzigGegevens").innerHTML += 'Uitgavejaar: <input name="uitgavejaar" type="number" value="'+ myJson.uitgavejaar +  '"><br><br>';
- 		document.getElementById("wijzigGegevens").innerHTML += 'Genre: <input name="categorie" type="text" value="'+ myJson.categorie +  '"><br><br>';
- 		document.getElementById("wijzigGegevens").innerHTML += 'Verkoopprijs: <input name="prijs" type="number" value="'+ myJson.prijs +  '"><br><br>';
- 		document.getElementById("wijzigGegevens").innerHTML += 'Korting: <input name="korting" type="number" value="'+ myJson.aanbieding +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Product ID: <input id="productnr" name="productnr" type="text" value="'+ object.id +  '" readonly><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Songnaam: <input name="songnaam" type="text" value="'+ object.naam +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Cover: <input name="cover" type="text" value="'+ object.cover +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Uitgavejaar: <input name="uitgavejaar" type="number" value="'+ object.uitgavejaar +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Genre: <input name="categorie" type="text" value="'+ object.categorie +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Verkoopprijs: <input name="prijs" type="number" value="'+ object.prijs +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Korting: <input name="korting" type="number" value="'+ object.aanbieding +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += '<input id="put" type="submit" value="Wijzig Artikel">';
  		document.getElementById("wijzigGegevens").innerHTML += '<input id="del" type="submit" value="Verwijder Artikel"><br><br>';
 		document.querySelector("#put").addEventListener("click", function(){
-			updateHandler(myJson.id);
+			updateHandler(object.id);
 		});
 		document.querySelector("#del").addEventListener("click", function(){
-			deleteHandler(myJson.id);
+			deleteHandler(object.id);
 		});
+		 }
  	});
  }
 
 var updateHandler = function(id) {
     var formData = new FormData(document.querySelector("#wijzigGegevens"));
     var encData = new URLSearchParams(formData.entries());
-    fetch("rest/msg/" + id, { method: 'PUT', body: encData, headers: {'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")}})
+    fetch("rest/msg/" + id, { method: 'PUT', body: encData})
         .then(response => response.json())
         .then(function (myJson) { console.log(myJson); })
 };
 
 
 var deleteHandler = function(id) {
-	fetch("rest/msg/" + id, {method: 'DELETE', headers: {'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")}})
+	fetch("rest/msg/" + id, {method: 'DELETE'})
 		.then(function (response) {
 			if (response.ok) {
 				console.log("artikel removed");
