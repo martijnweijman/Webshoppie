@@ -172,19 +172,17 @@ function loadProducten() {
 			 var cell8 = rij.insertCell(7);
 			 var cell9 = rij.insertCell(8);
 			 var cell10 = rij.insertCell(9);
-			 var cell11 = rij.insertCell(10);
 			 
 			 cell1.innerHTML = object.id;
 			 cell2.innerHTML = object.naam;
 			 cell3.innerHTML = object.artiest;
-			 cell4.innerHTML = object.cover;
-			 cell5.innerHTML = object.uitgavejaar;
-			 cell6.innerHTML = object.beschrijving;
-			 cell7.innerHTML = object.categorie;
-			 cell8.innerHTML = '€' + object.prijs.toFixed(2);
-			 cell9.innerHTML =  object.aanbieding;
-			 cell10.innerHTML = '<input class="koopbtn" id="'+ object.id + '" type="submit" value="Koop">';
-			 cell11.innerHTML = '<input class="wijzigbtn" id="'+ object.id + '" type="submit" value="Wijzig">';
+			 cell4.innerHTML = object.uitgavejaar;
+			 cell5.innerHTML = object.beschrijving;
+			 cell6.innerHTML = object.categorie;
+			 cell7.innerHTML = '€' + object.prijs.toFixed(2);
+			 cell8.innerHTML =  object.aanbieding;
+			 cell9.innerHTML = '<input class="koopbtn" id="'+ object.id + '" type="submit" value="Koop">';
+			 cell10.innerHTML = '<input class="wijzigbtn" id="'+ object.id + '" type="submit" value="Wijzig">';
 			 
 			 var valueKoop = document.querySelector("#tabel input[value='Koop']");
 			valueKoop.addEventListener("click", redirectFunc);
@@ -283,19 +281,17 @@ function sorteerProductenOpCategorie(categorie) {
 				 var cell8 = rij.insertCell(7);
 				 var cell9 = rij.insertCell(8);
 				 var cell10 = rij.insertCell(9);
-				 var cell11 = rij.insertCell(10);
 				 
 				 cell1.innerHTML = object.id;
 				 cell2.innerHTML = object.naam;
 				 cell3.innerHTML = object.artiest;
-				 cell4.innerHTML = object.cover;
-				 cell5.innerHTML = object.uitgavejaar;
-				 cell6.innerHTML = object.beschrijving;
-				 cell7.innerHTML = object.categorie;
-				 cell8.innerHTML = '€' + object.prijs.toFixed(2);
-				 cell9.innerHTML =  object.aanbieding;
-				 cell10.innerHTML = '<input class="koopbtn" id="'+ object.id + '" type="submit" value="Koop">';
-				 cell11.innerHTML = '<input class="wijzigbtn" id="'+ object.id + '" type="submit" value="Wijzig">';
+				 cell4.innerHTML = object.uitgavejaar;
+				 cell5.innerHTML = object.beschrijving;
+				 cell6.innerHTML = object.categorie;
+				 cell7.innerHTML = '€' + object.prijs.toFixed(2);
+				 cell8.innerHTML =  object.aanbieding;
+				 cell9.innerHTML = '<input class="koopbtn" id="'+ object.id + '" type="submit" value="Koop">';
+				 cell10.innerHTML = '<input class="wijzigbtn" id="'+ object.id + '" type="submit" value="Wijzig">';
 				 
 				 var valueKoop = document.querySelector("#tabel input[value='Koop']");
 				valueKoop.addEventListener("click", redirectFunc);
