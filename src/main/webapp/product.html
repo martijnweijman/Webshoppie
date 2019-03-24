@@ -19,7 +19,7 @@
 <link rel="stylesheet" type="text/css" href="styles/artists.css">
 <link rel="stylesheet" type="text/css"
 	href="styles/artists_responsive.css">
-<link rel="stylesheet" type="text/css" href="styles/login.css">
+<link rel="stylesheet" type="text/css" href="styles/product.css">
 <script src="js/aanroepen.js"></script>
 </head>
 <body>
@@ -46,24 +46,18 @@
 	</div>
 
 	<!-- Gegevens -->
-	<div id="login_div">
-		<center>
-			<form action="#" id="login_form">
-				<div>
-					<input type="text" class="login_input" placeholder="Username"
-						required="required">
-				</div>
-				<div>
-					<input type="password" class="login_input" placeholder="Password"
-						required="required">
-				</div>
-				<div>
-					<button id="loginbutton" class="button contact_form_button">
-						<span>Login</span>
-					</button>
-				</div>
-			</form>
-		</center>
+	<div id="productinfoDiv">
+		<div id="links">
+			<div id="productCover"></div>
+		</div>
+
+		<div id="midden">
+			<div id="productNaam"></div>
+			<div id="productArtiest"></div>
+			<div id="productCategorie"></div>
+			<div id="productBeschrijving"></div>
+			<div id="productPrijs"></div>
+		</div>
 	</div>
 
 
@@ -71,11 +65,12 @@
 	<div w3-include-html="elementen/footer.html"></div>
 
 	</div>
+	<script src="js/product.js"></script>
 	<script>
 		includeHTML()
 		var id = 1;
+		productInfo(id);
 	</script>
-	<script src="js/product.js"></script>
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="styles/bootstrap-4.1.2/popper.js"></script>
 	<script src="styles/bootstrap-4.1.2/bootstrap.min.js"></script>

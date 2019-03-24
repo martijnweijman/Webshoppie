@@ -43,10 +43,10 @@ public class OpvangResource {
 				job.add("naam", p.getProductNaam());
 				job.add("artiest", p.getArtiest());
 				job.add("prijs", p.getProductPrijs());
-				job.add("categorie", p.getMijnCategory().getNaam());
+//				job.add("categorie", p.getMijnCategory().getNaam());
 				job.add("uitgavejaar", p.getUitgavejaar());
 				job.add("beschrijving", p.getProductBeschrijving());
-				job.add("cover", p.getCover());
+//				job.add("cover", p.getCover());
 //				job.add("aanbieding", p.getMijnAanbieding());
 				jab.add(job);
 				break;
@@ -70,10 +70,10 @@ public class OpvangResource {
 			job.add("naam", p.getProductNaam());
 			job.add("artiest", p.getArtiest());
 			job.add("prijs", p.getProductPrijs());
-			job.add("categorie", p.getMijnCategory().getNaam());
+//			job.add("categorie", p.getMijnCategory().getNaam());
 			job.add("uitgavejaar", p.getUitgavejaar());
 			job.add("beschrijving", p.getProductBeschrijving());
-			job.add("cover", p.getCover());
+//			job.add("cover", p.getCover());
 //			job.add("aanbieding", p.getMijnAanbieding());
 			jab.add(job);
 		}

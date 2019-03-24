@@ -64,8 +64,8 @@ public class ProductDaoOracleImplementatie extends Tooldatabase implements Produ
 		Statement st = con.createStatement();
 		ResultSet rsProduct = st.executeQuery(
 				"insert into product (productid, albumnaam, prijs, categorie, artiest, beschrijving, cover, uitgavejaar, aanbieding) values ("
-						+ id + ", " + naam + ", " + prijs + ", " + categorie + ", " + artiest + ", " + beschrijving
-						+ ", " + cover + ", " + uitgavejaar + ", " + aanbieding + ");");
+						+ "PRODUCT_SEQ.nextval" + ", '" + naam + "', " + prijs + ", '" + categorie + "', '" + artiest + "', '" + beschrijving
+						+ "', '" + cover + "', " + uitgavejaar + ", " + aanbieding + ");");
 		waarheid = true;
 		rsProduct.close();
 		con.close();
