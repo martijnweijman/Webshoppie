@@ -2,10 +2,12 @@ package com.jersey;
 
 import java.sql.SQLException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -16,20 +18,21 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import com.artikel.ArtikelService;
-
-import com.artikel.ServiceProvider;
-
 import webshop.domain.Aanbieding;
 import webshop.domain.Category;
 import webshop.domain.Product;
+import webshop.persistency.dao.AanbiedingDao;
+import webshop.persistency.dao.CategoryDao;
 import webshop.persistency.dao.ProductDao;
+import webshop.persistency.daoImplementatie.AanbiedingDaoOracleImplementatie;
+import webshop.persistency.daoImplementatie.CategoryDaoOracleImplementatie;
 import webshop.persistency.daoImplementatie.ProductDaoOracleImplementatie;
 
 @Path("msg")
 public class OpvangResource {
 
 	ProductDao PDao = new ProductDaoOracleImplementatie();
+	AanbiedingDao ADao = new AanbiedingDaoOracleImplementatie();
 
 	@GET
 	@Produces("application/json")
@@ -40,13 +43,13 @@ public class OpvangResource {
 		ProductDao prdD = new ProductDaoOracleImplementatie();
 		for (Product p : prdD.geefAlleProducten()) {
 			if (p.getProductID() == msg) {
-				System.out.println(p.getProductNaam());
+				System.out.println("naam:" + p.getProductNaam() + "  categorie:" + p.getMijnCategory());
 				JsonObjectBuilder job = Json.createObjectBuilder();
 				job.add("id", p.getProductID());
 				job.add("naam", p.getProductNaam());
 				job.add("artiest", p.getArtiest());
 				job.add("prijs", p.getProductPrijs());
-//				job.add("categorie", p.getMijnCategory().getNaam());
+				job.add("categorie", p.getMijnCategory());
 				job.add("uitgavejaar", p.getUitgavejaar());
 				job.add("beschrijving", p.getProductBeschrijving());
 //				job.add("cover", p.getCover());
@@ -73,11 +76,11 @@ public class OpvangResource {
 			job.add("naam", p.getProductNaam());
 			job.add("artiest", p.getArtiest());
 			job.add("prijs", p.getProductPrijs());
-//				job.add("categorie", p.getMijnCategory().getNaam());
+//			job.add("categorie", p.getMijnCategory().getNaam());
 			job.add("uitgavejaar", p.getUitgavejaar());
 			job.add("beschrijving", p.getProductBeschrijving());
-//				job.add("cover", p.getCover());
-//				job.add("aanbieding", p.getMijnAanbieding());
+//			job.add("cover", p.getCover());
+//			job.add("aanbieding", p.getMijnAanbieding());
 			jab.add(job);
 		}
 		JsonArray array = jab.build();
@@ -85,6 +88,7 @@ public class OpvangResource {
 	}
 
 	@DELETE
+	@RolesAllowed("admin")
 	@Path("{id}")
 	@Produces("application/json")
 	public Response deletePersoon(@PathParam("id") int id) throws SQLException {
@@ -97,6 +101,7 @@ public class OpvangResource {
 	}
 
 	@POST
+	@RolesAllowed("admin")
 	@Produces("application/json")
 	public Response addPersoon(@FormParam("id") int id, @FormParam("naam") String naam,
 			@FormParam("artiest") String artiest, @FormParam("prijs") double prijs,
@@ -110,6 +115,7 @@ public class OpvangResource {
 	}
 
 	@PUT
+	@RolesAllowed("admin")
 	@Path("{id}")
 	@Produces("application/json")
 	public Response updatePersoon(@FormParam("id") int id, @FormParam("naam") String naam,
@@ -122,4 +128,70 @@ public class OpvangResource {
 		return Response.ok().build();
 	}
 
+//	Getten van alle categorien
+	@GET
+	@Produces("application/json")
+	@Path("/categorien")
+	public Response getAllCategorien() throws SQLException {
+
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		CategoryDao ctgD = new CategoryDaoOracleImplementatie();
+		for (Category c : ctgD.geefAlleCategorien()) {
+			System.out.println(c.getNaam());
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("naam", c.getNaam());
+			jab.add(job);
+		}
+		JsonArray array = jab.build();
+		return Response.status(200).entity(array.toString()).build();
+	}
+
+//	Getten van specifieke categorie
+	@GET
+	@Produces("application/json")
+	@Path("/categorien/{param}")
+	public Response getCategorie(@PathParam("param") String msg) throws SQLException {
+
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		CategoryDao ctgD = new CategoryDaoOracleImplementatie();
+		for (Category c : ctgD.geefAlleCategorien()) {
+			if (c.getNaam() == msg) {
+				System.out.println(c.getNaam());
+				JsonObjectBuilder job = Json.createObjectBuilder();
+				job.add("naam", c.getNaam());
+				jab.add(job);
+				break;
+			}
+		}
+		JsonArray array = jab.build();
+		return Response.status(200).entity(array.toString()).build();
+	}
+
+//	Getten van specifieke aanbieding
+	@GET
+	@Produces("application/json")
+	@Path("/aanbiedingen/{param}")
+	public Response getAanbieding(@PathParam("param") int msg) throws SQLException {
+		
+		Product p = PDao.geefEenProduct(msg);
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		Aanbieding a = ADao.geefMijnAanbiedingen(msg);
+		if (a.getId() == msg) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			System.out.println("1");
+			job.add("aanbiedingid", a.getId());
+			System.out.println("2");
+			job.add("startdatum", a.getVanDatum().toString());
+			System.out.println("3");
+			job.add("einddatum", a.getTotDatum().toString());
+			System.out.println("4");
+			job.add("productid", p.getProductID());
+			System.out.println("5");
+			job.add("kortingspercentage", a.getKortingsPercentage());
+			jab.add(job);
+		}
+
+		JsonArray array = jab.build();
+		return Response.status(200).entity(array.toString()).build();
+	}
 }

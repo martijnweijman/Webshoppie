@@ -19,7 +19,7 @@ public class AanbiedingDaoOracleImplementatie extends Tooldatabase implements Aa
 		Statement st= con.createStatement();
 		ResultSet rsAanbieding=st.executeQuery("select * from Aanbieding");
 		while(rsAanbieding.next()) {
-			mijnAanbiedingen.add(new Aanbieding(rsAanbieding.getInt(1), rsAanbieding.getDate(2), rsAanbieding.getDate(3), rsAanbieding.getInt(4)));
+			mijnAanbiedingen.add(new Aanbieding(rsAanbieding.getInt(1), rsAanbieding.getDate(2), rsAanbieding.getDate(3), rsAanbieding.getInt(5)));
 		}
 		rsAanbieding.close();
 		con.close();
@@ -32,7 +32,7 @@ public class AanbiedingDaoOracleImplementatie extends Tooldatabase implements Aa
 		Statement st= con.createStatement();
 		ResultSet rsAanbieding=st.executeQuery("select * from Aanbieding where AANBIEDINGID = '" + id +"'");
 		while(rsAanbieding.next()) {
-			mijnAanbieding = new Aanbieding(rsAanbieding.getInt(1), rsAanbieding.getDate(2), rsAanbieding.getDate(3), rsAanbieding.getInt(4));
+			mijnAanbieding = new Aanbieding(rsAanbieding.getInt(1), rsAanbieding.getDate(2), rsAanbieding.getDate(3), rsAanbieding.getInt(5));
 		}
 		rsAanbieding.close();
 		con.close();

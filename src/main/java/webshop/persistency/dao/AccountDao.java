@@ -7,5 +7,6 @@ import webshop.domain.Account;
 public interface AccountDao {
 	List<Account> geefAlleAccounts() throws SQLException;
 	Account geefMijnAccount(int id) throws SQLException;
+	public String findRoleForAccount(String username, String password) throws SQLException;
 
 }
