@@ -60,7 +60,7 @@ public class ProductDaoOracleImplementatie extends Tooldatabase implements Produ
 	}
 
 	public boolean addProduct(int id, String naam, String artiest, double prijs, String categorie, int uitgavejaar,
-			String beschrijving, String cover, double aanbieding) throws SQLException {
+			String beschrijving, String cover) throws SQLException {
 		boolean waarheid = false;
 		Connection con = super.getConnection();
 		Statement st = con.createStatement();
@@ -76,7 +76,7 @@ public class ProductDaoOracleImplementatie extends Tooldatabase implements Produ
 	}
 
 	public boolean updateProduct(int id, String naam, String artiest, double prijs, String categorie, int uitgavejaar,
-			String beschrijving, String cover, double aanbieding) throws SQLException {
+			String beschrijving, String cover) throws SQLException {
 		boolean waarheid = false;
 		Product ditProduct = geefEenProduct(id);
 		if (ditProduct != null) {

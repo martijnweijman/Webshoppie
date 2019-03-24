@@ -9,6 +9,7 @@ import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -101,31 +102,30 @@ public class OpvangResource {
 
 	}
 
+//	Posten van product
 	@POST
 	@RolesAllowed("admin")
 	@Produces("application/json")
-	public Response addPersoon(@FormParam("id") int id, @FormParam("naam") String naam,
+	public Response addProduct(@FormParam("id") int id, @FormParam("naam") String naam,
 			@FormParam("artiest") String artiest, @FormParam("prijs") double prijs,
 			@FormParam("categorie") String categorie, @FormParam("uitgavejaar") int uitgavejaar,
-			@FormParam("beschrijving") String beschrijving, @FormParam("cover") String cover,
-			@FormParam("aanbieding") double aanbieding) throws SQLException {
+			@FormParam("beschrijving") String beschrijving, @FormParam("cover") String cover) throws SQLException {
 
-		Boolean product = PDao.addProduct(id, naam, artiest, prijs, categorie, uitgavejaar, beschrijving, cover,
-				aanbieding);
+		Boolean product = PDao.addProduct(id, naam, artiest, prijs, categorie, uitgavejaar, beschrijving, cover);
 		return Response.ok().build();
 	}
 
+//	Updaten van product
 	@PUT
 	@RolesAllowed("admin")
 	@Path("{id}")
 	@Produces("application/json")
-	public Response updatePersoon(@FormParam("id") int id, @FormParam("naam") String naam,
+	public Response updateProduct(@FormParam("id") int id, @FormParam("naam") String naam,
 			@FormParam("artiest") String artiest, @FormParam("prijs") double prijs,
 			@FormParam("categorie") String categorie, @FormParam("uitgavejaar") int uitgavejaar,
-			@FormParam("beschrijving") String beschrijving, @FormParam("cover") String cover,
-			@FormParam("aanbieding") double aanbieding) throws SQLException {
+			@FormParam("beschrijving") String beschrijving, @FormParam("cover") String cover) throws SQLException {
 
-		PDao.updateProduct(id, naam, artiest, prijs, categorie, uitgavejaar, beschrijving, cover, aanbieding);
+		PDao.updateProduct(id, naam, artiest, prijs, categorie, uitgavejaar, beschrijving, cover);
 		return Response.ok().build();
 	}
 
@@ -201,4 +201,18 @@ public class OpvangResource {
 		JsonArray array = jab.build();
 		return Response.status(200).entity(array.toString()).build();
 	}
+	
+//	Posten van bestelling
+//	@POST
+//	@RolesAllowed("klant")
+//	@Produces("application/json")
+//	@Consumes("application/json")
+//	public Response addBestelling(@FormParam("id") int id, @FormParam("naam") String naam,
+//			@FormParam("artiest") String artiest, @FormParam("prijs") double prijs,
+//			@FormParam("categorie") String categorie, @FormParam("uitgavejaar") int uitgavejaar,
+//			@FormParam("beschrijving") String beschrijving, @FormParam("cover") String cover) throws SQLException {
+//
+//		Boolean product = PDao.addProduct(id, naam, artiest, prijs, categorie, uitgavejaar, beschrijving, cover);
+//		return Response.ok().build();
+//	}
 }
