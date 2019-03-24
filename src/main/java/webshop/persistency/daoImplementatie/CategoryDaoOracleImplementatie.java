@@ -17,7 +17,7 @@ public class CategoryDaoOracleImplementatie extends Tooldatabase implements Cate
 		List<Category> mijnCategory = new ArrayList<Category>();
 		Connection con = super.getConnection();
 		Statement st= con.createStatement();
-		ResultSet rsCategory=st.executeQuery("select * from Category");
+		ResultSet rsCategory=st.executeQuery("select * from categorie");
 		while(rsCategory.next()) {
 			mijnCategory.add(new Category(rsCategory.getString(1)));
 		}

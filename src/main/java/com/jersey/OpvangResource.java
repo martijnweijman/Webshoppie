@@ -20,7 +20,9 @@ import javax.ws.rs.core.Response;
 import webshop.domain.Aanbieding;
 import webshop.domain.Category;
 import webshop.domain.Product;
+import webshop.persistency.dao.CategoryDao;
 import webshop.persistency.dao.ProductDao;
+import webshop.persistency.daoImplementatie.CategoryDaoOracleImplementatie;
 import webshop.persistency.daoImplementatie.ProductDaoOracleImplementatie;
 
 @Path("msg")
@@ -37,13 +39,13 @@ public class OpvangResource {
 		ProductDao prdD = new ProductDaoOracleImplementatie();
 		for (Product p : prdD.geefAlleProducten()) {
 			if (p.getProductID() == msg) {
-				System.out.println(p.getProductNaam());
+				System.out.println("naam:" +  p.getProductNaam() + "  categorie:" + p.getMijnCategory());
 				JsonObjectBuilder job = Json.createObjectBuilder();
 				job.add("id", p.getProductID());
 				job.add("naam", p.getProductNaam());
 				job.add("artiest", p.getArtiest());
 				job.add("prijs", p.getProductPrijs());
-//				job.add("categorie", p.getMijnCategory().getNaam());
+				job.add("categorie", p.getMijnCategory().getNaam());
 				job.add("uitgavejaar", p.getUitgavejaar());
 				job.add("beschrijving", p.getProductBeschrijving());
 //				job.add("cover", p.getCover());
@@ -122,4 +124,20 @@ public class OpvangResource {
 		return Response.ok().build();
 	}
 
+	@GET
+	@Produces("application/json")
+	@Path("/categorien")
+	public Response getAllCategorien() throws SQLException {
+
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		CategoryDao ctgD = new CategoryDaoOracleImplementatie();
+		for (Category c : ctgD.geefAlleCategorien()) {
+			System.out.println(c.getNaam());
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("naam", c.getNaam());
+			jab.add(job);
+		}
+		JsonArray array = jab.build();
+		return Response.status(200).entity(array.toString()).build();
+	}
 }
