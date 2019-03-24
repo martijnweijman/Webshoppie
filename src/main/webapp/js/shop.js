@@ -229,14 +229,14 @@ function wijzigFunc(){
 var updateHandler = function(id) {
     var formData = new FormData(document.querySelector("#wijzigGegevens"));
     var encData = new URLSearchParams(formData.entries());
-    fetch("rest/msg/" + id, { method: 'PUT', body: encData})
+    fetch("rest/msg/producten/" + id, { method: 'PUT', body: encData})
         .then(response => response.json())
         .then(function (myJson) { console.log(myJson); })
 };
 
 
 var deleteHandler = function(id) {
-	fetch("rest/msg/" + id, {method: 'DELETE'})
+	fetch("rest/msg/producten/" + id, {method: 'DELETE'})
 		.then(function (response) {
 			if (response.ok) {
 				console.log("artikel removed");
