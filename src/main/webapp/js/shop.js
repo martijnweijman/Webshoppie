@@ -140,7 +140,7 @@ $(document).ready(function()
 });
 
 function loadProducten() {
-	  fetch("restservices/producten")
+	  fetch("rest/msg/producten")
 	  .then(response => response.json())
 	  .then(function(myJson) {
 		 var tabel = document.getElementById("tabel");
@@ -157,19 +157,26 @@ function loadProducten() {
 			 var cell7 = rij.insertCell(6);
 			 var cell8 = rij.insertCell(7);
 			 var cell9 = rij.insertCell(8);
+			 var cell10 = rij.insertCell(9);
 			 
-			 cell1.innerHTML = object.productnr;
+			 cell1.innerHTML = object.id;
 			 cell2.innerHTML = object.naam;
-			 cell3.innerHTML = '€' + object.inkoopprijs.toFixed(2);
-			 cell4.innerHTML = '€' + object.verkoopprijs.toFixed(2);
-			 cell5.innerHTML = object.categorie;
-			 cell6.innerHTML = object.voorraad;
-			 cell7.innerHTML = object.levnr;
-			 cell8.innerHTML = object.levnr;
-			 cell9.innerHTML = '<input class="koopbtn" id="'+ object.productnr + '" type="submit" value="Koop">';
+			 cell3.innerHTML = object.artiest;
+			 cell4.innerHTML = object.cover;
+			 cell5.innerHTML = object.uitgavejaar;
+			 cell6.innerHTML = object.beschrijving;
+			 cell7.innerHTML = object.categorie;
+			 cell8.innerHTML = '€' + object.prijs.toFixed(2);
+			 cell9.innerHTML =  object.aanbieding;
+			 cell10.innerHTML = '<input class="koopbtn" id="'+ object.id + '" type="submit" value="Koop">';
 			 
-			 valueWijzig.addEventListener("click", sessionStorage.setItem(object.productnr));
+			 var valueKoop = document.querySelector("#tabel input[value='Koop']");
+			valueKoop.addEventListener("click", redirectFunc);
 			 
 		 }
 	  });
+}
+
+function redirectFunc(){
+	window.location.href = "http://localhost:8081/webshop/" + this.id + ".html"
 }
