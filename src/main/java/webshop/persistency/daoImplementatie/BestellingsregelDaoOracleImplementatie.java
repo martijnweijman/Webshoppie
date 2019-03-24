@@ -37,5 +37,13 @@ public class BestellingsregelDaoOracleImplementatie extends Tooldatabase impleme
 		rsBestellingsregel.close();
 		con.close();
 	}
+	
+	public void voegBestelregelToe(Bestellingsregel br) throws SQLException{
+		Connection con = super.getConnection();
+		Statement st= con.createStatement();
+		ResultSet rsBestelling=st.executeQuery("insert into bestellingregel values("+br.getMijnBestelling().getId()+","+br.getMijnProduct().getProductID()+"," +br.getAantal()+","+ br.getPrijs()+",BESTELLINGREGEL_SEQ.NEXTVAL)");
+		rsBestelling.close();
+		con.close();
+	}
 
 }
