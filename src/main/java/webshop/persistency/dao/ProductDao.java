@@ -16,6 +16,6 @@ public interface ProductDao {
 			String beschrijving, String cover, double aanbieding) throws SQLException;
 	boolean updateProduct(int id, String naam, String artiest, double prijs, String categorie, int uitgavejaar,
 			String beschrijving, String cover, double aanbieding) throws SQLException;
-	List<Product> geefAlleProductenMetCategorie() throws SQLException;
+	List<Product> geefAlleProductenMetCategorie(String categorie) throws SQLException;
 
 }

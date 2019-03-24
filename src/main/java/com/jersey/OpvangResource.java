@@ -1,6 +1,7 @@
 package com.jersey;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
@@ -154,15 +155,21 @@ public class OpvangResource {
 
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 		CategoryDao ctgD = new CategoryDaoOracleImplementatie();
-		for (Category c : ctgD.geefAlleCategorien()) {
-			if (c.getNaam() == msg) {
-				System.out.println(c.getNaam());
-				JsonObjectBuilder job = Json.createObjectBuilder();
-				job.add("naam", c.getNaam());
-				jab.add(job);
-				break;
-			}
+		List<Product> CPL = PDao.geefAlleProductenMetCategorie(msg);
+		for (Product p : CPL) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("id", p.getProductID());
+			job.add("naam", p.getProductNaam());
+			job.add("artiest", p.getArtiest());
+			job.add("prijs", p.getProductPrijs());
+			job.add("categorie", p.getMijnCategory());
+			job.add("uitgavejaar", p.getUitgavejaar());
+			job.add("beschrijving", p.getProductBeschrijving());
+//			job.add("cover", p.getCover());
+//			job.add("aanbieding", p.getMijnAanbieding());
+			jab.add(job);
 		}
+
 		JsonArray array = jab.build();
 		return Response.status(200).entity(array.toString()).build();
 	}
@@ -172,7 +179,7 @@ public class OpvangResource {
 	@Produces("application/json")
 	@Path("/aanbiedingen/{param}")
 	public Response getAanbieding(@PathParam("param") int msg) throws SQLException {
-		
+
 		Product p = PDao.geefEenProduct(msg);
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 		Aanbieding a = ADao.geefMijnAanbiedingen(msg);
