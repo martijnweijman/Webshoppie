@@ -208,11 +208,13 @@ function wijzigFunc(){
 	 	document.getElementById("wijzigGegevens").innerHTML = '<h2> Artikel Wijzigen</h2>';
  		document.getElementById("wijzigGegevens").innerHTML += 'Product ID: <input id="productnr" name="productnr" type="text" value="'+ object.id +  '" readonly><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += 'Songnaam: <input name="songnaam" type="text" value="'+ object.naam +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Artiest: <input name="artiest" type="text" value="'+ object.artiest +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += 'Cover: <input name="cover" type="text" value="'+ object.cover +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += 'Uitgavejaar: <input name="uitgavejaar" type="number" value="'+ object.uitgavejaar +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += 'Genre: <input name="categorie" type="text" value="'+ object.categorie +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += 'Verkoopprijs: <input name="prijs" type="number" value="'+ object.prijs +  '"><br><br>';
- 		document.getElementById("wijzigGegevens").innerHTML += 'Korting: <input name="korting" type="number" value="'+ object.aanbieding +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Korting: <input name="aanbieding" type="number" value="'+ object.aanbieding +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Beschrijving: <input name="beschrijving" type="text" value="'+ object.beschrijving +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += '<input id="put" type="submit" value="Wijzig Artikel">';
  		document.getElementById("wijzigGegevens").innerHTML += '<input id="del" type="submit" value="Verwijder Artikel"><br><br>';
 		document.querySelector("#put").addEventListener("click", function(){
