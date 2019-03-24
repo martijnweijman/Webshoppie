@@ -18,6 +18,11 @@
 	margin-left: 2%;
 }
 
+#rechts {
+	float: right;
+	margin-top: 2%;
+}
+
 #productNaam {
 	font-size: 40px;
 }
