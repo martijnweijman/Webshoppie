@@ -196,7 +196,7 @@ function loadProducten() {
 }
 
 function redirectFunc(){
-	window.location.href = "http://localhost:8081/webshop/" + this.id + ".html"
+	window.location.href = "http://localhost:8081/webshop/product.html?id=" + this.id;
 }
 
 function wijzigFunc(){

@@ -20,12 +20,15 @@ import javax.ws.rs.core.Response;
 import webshop.domain.Aanbieding;
 import webshop.domain.Category;
 import webshop.domain.Product;
+import webshop.persistency.dao.AanbiedingDao;
 import webshop.persistency.dao.ProductDao;
+import webshop.persistency.daoImplementatie.AanbiedingDaoOracleImplementatie;
 import webshop.persistency.daoImplementatie.ProductDaoOracleImplementatie;
 
 @Path("msg")
 public class OpvangResource {
-
+	
+	AanbiedingDao ADao = new AanbiedingDaoOracleImplementatie();
 	ProductDao PDao = new ProductDaoOracleImplementatie();
 
 	@GET
@@ -121,5 +124,34 @@ public class OpvangResource {
 		PDao.updateProduct(id, naam, artiest, prijs, categorie, uitgavejaar, beschrijving, cover, aanbieding);
 		return Response.ok().build();
 	}
+	
+//  Getten van specifieke aanbieding
+  @GET
+  @Produces("application/json")
+  @Path("/aanbiedingen/{param}")
+  public Response getAanbieding(@PathParam("param") int msg) throws SQLException {
+
+      Product p = PDao.geefEenProduct(msg);
+      JsonArrayBuilder jab = Json.createArrayBuilder();
+      Aanbieding a = ADao.geefMijnAanbiedingen(p);
+       if(a.getMijnProduct() == p) {
+          JsonObjectBuilder job = Json.createObjectBuilder();
+          System.out.println("1");
+          job.add("aanbiedingid", a.getId());
+          System.out.println("2");
+          job.add("startdatum", a.getVanDatum().toString());
+          System.out.println("3");
+          job.add("einddatum", a.getTotDatum().toString());
+          System.out.println("4");
+          job.add("productid", p.getProductID());
+          System.out.println("5");
+          job.add("kortingspercentage", a.getKortingsPercentage());
+          job.build();
+          jab.add(job);
+       }
+
+      JsonArray array = jab.build();
+      return Response.status(200).entity(array.toString()).build();
+  }
 
 }
