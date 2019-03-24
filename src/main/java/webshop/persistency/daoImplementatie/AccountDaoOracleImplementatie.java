@@ -38,5 +38,24 @@ public class AccountDaoOracleImplementatie extends Tooldatabase implements Accou
 		con.close();
 		return mijnAccount;
 	}
+	
+	public String findRoleForAccount(String username, String password) throws SQLException {
+		System.out.println("Binnen Functie findRoleForAccount DaoImpl");
+		String rol = null;
+		try
+			(Connection con = super.getConnection()){
+				Statement stmt = con.createStatement();
+				ResultSet dbResultSet = stmt.executeQuery("select rol from account where email ='" + username + "' and wachtwoord ='" + password + "'");
+				while (dbResultSet.next()) {
+					String dbRol = dbResultSet.getString("rol");
+					
+					rol = dbRol;
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		System.out.println(rol);
+		return rol;
+	}
 
 }

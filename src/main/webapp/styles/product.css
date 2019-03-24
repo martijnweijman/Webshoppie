@@ -1,0 +1,35 @@
+#productinfoDiv {
+	padding: 3%;
+	height: 435px;
+}
+
+#links {
+	float: left;
+	width: 360px;
+}
+
+#productCover {
+	width: 360px;
+	height: 360px;
+	border: 2px solid grey;
+}
+
+#midden {
+	margin-left: 2%;
+}
+
+#productNaam {
+	font-size: 40px;
+}
+
+#productArtiest {
+	font-size: 30px;
+}
+
+#productBeschrijving {
+	font-size: 20px;
+}
+
+#productPrijs {
+	font-size: 30px;
+}

@@ -2,6 +2,7 @@ package com.jersey;
 
 import java.sql.SQLException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -15,10 +16,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-
-import com.artikel.ArtikelService;
-
-import com.artikel.ServiceProvider;
 
 import webshop.domain.Aanbieding;
 import webshop.domain.Category;
@@ -73,11 +70,11 @@ public class OpvangResource {
 			job.add("naam", p.getProductNaam());
 			job.add("artiest", p.getArtiest());
 			job.add("prijs", p.getProductPrijs());
-//				job.add("categorie", p.getMijnCategory().getNaam());
+//			job.add("categorie", p.getMijnCategory().getNaam());
 			job.add("uitgavejaar", p.getUitgavejaar());
 			job.add("beschrijving", p.getProductBeschrijving());
-//				job.add("cover", p.getCover());
-//				job.add("aanbieding", p.getMijnAanbieding());
+//			job.add("cover", p.getCover());
+//			job.add("aanbieding", p.getMijnAanbieding());
 			jab.add(job);
 		}
 		JsonArray array = jab.build();
@@ -85,6 +82,7 @@ public class OpvangResource {
 	}
 
 	@DELETE
+	@RolesAllowed("admin")
 	@Path("{id}")
 	@Produces("application/json")
 	public Response deletePersoon(@PathParam("id") int id) throws SQLException {
@@ -97,6 +95,7 @@ public class OpvangResource {
 	}
 
 	@POST
+	@RolesAllowed("admin")
 	@Produces("application/json")
 	public Response addPersoon(@FormParam("id") int id, @FormParam("naam") String naam,
 			@FormParam("artiest") String artiest, @FormParam("prijs") double prijs,
@@ -110,6 +109,7 @@ public class OpvangResource {
 	}
 
 	@PUT
+	@RolesAllowed("admin")
 	@Path("{id}")
 	@Produces("application/json")
 	public Response updatePersoon(@FormParam("id") int id, @FormParam("naam") String naam,
