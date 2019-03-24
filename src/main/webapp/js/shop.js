@@ -212,7 +212,6 @@ function wijzigFunc(){
  		document.getElementById("wijzigGegevens").innerHTML += 'Uitgavejaar: <input name="uitgavejaar" type="number" value="'+ object.uitgavejaar +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += 'Genre: <input name="categorie" type="text" value="'+ object.categorie +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += 'Verkoopprijs: <input name="prijs" type="number" value="'+ object.prijs +  '"><br><br>';
- 		document.getElementById("wijzigGegevens").innerHTML += 'Korting: <input name="aanbieding" type="number" value="'+ object.aanbieding +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += 'Beschrijving: <input name="beschrijving" type="text" value="'+ object.beschrijving +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += '<input id="put" type="submit" value="Wijzig Artikel">';
  		document.getElementById("wijzigGegevens").innerHTML += '<input id="del" type="submit" value="Verwijder Artikel"><br><br>';
@@ -229,14 +228,14 @@ function wijzigFunc(){
 var updateHandler = function(id) {
     var formData = new FormData(document.querySelector("#wijzigGegevens"));
     var encData = new URLSearchParams(formData.entries());
-    fetch("rest/msg/producten/" + id, { method: 'PUT', body: encData})
+    fetch("rest/msg/" + id, { method: 'PUT', body: encData})
         .then(response => response.json())
         .then(function (myJson) { console.log(myJson); })
 };
 
 
 var deleteHandler = function(id) {
-	fetch("rest/msg/producten/" + id, {method: 'DELETE'})
+	fetch("rest/msg/" + id, {method: 'DELETE'})
 		.then(function (response) {
 			if (response.ok) {
 				console.log("artikel removed");
@@ -248,7 +247,7 @@ var deleteHandler = function(id) {
 }
 
 function loadCategorie() {
-	  fetch("rest/msg/categorie")
+	  fetch("rest/msg/categorien")
 		.then(response => response.json())
 	 	.then(function(myJson){
 			 for (const object of myJson) {
@@ -259,7 +258,7 @@ function loadCategorie() {
 		 	}
 
 function sorteerProductenOpCategorie(categorie) {
-		    fetch("rest/msg/" + categorie)
+		    fetch("rest/msg/categorien" + categorie)
 		  .then(response => response.json())
 		  .then(function(myJson) {
 			 var tabel = document.getElementById("tabel");
