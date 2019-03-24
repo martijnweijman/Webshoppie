@@ -158,6 +158,7 @@ function loadProducten() {
 			 var cell8 = rij.insertCell(7);
 			 var cell9 = rij.insertCell(8);
 			 var cell10 = rij.insertCell(9);
+			 var cell11 = rij.insertCell(10);
 			 
 			 cell1.innerHTML = object.id;
 			 cell2.innerHTML = object.naam;
@@ -169,9 +170,13 @@ function loadProducten() {
 			 cell8.innerHTML = '€' + object.prijs.toFixed(2);
 			 cell9.innerHTML =  object.aanbieding;
 			 cell10.innerHTML = '<input class="koopbtn" id="'+ object.id + '" type="submit" value="Koop">';
+			 cell11.innerHTML = '<input class="wijzigbtn" id="'+ object.id + '" type="submit" value="Wijzig">';
 			 
 			 var valueKoop = document.querySelector("#tabel input[value='Koop']");
 			valueKoop.addEventListener("click", redirectFunc);
+			
+			 var valueWijzig = document.querySelector("#tabel input[value='Wijzig']");
+			 valueWijzig.addEventListener("click", wijzigFunc);
 			 
 		 }
 	  });
@@ -179,4 +184,49 @@ function loadProducten() {
 
 function redirectFunc(){
 	window.location.href = "http://localhost:8081/webshop/" + this.id + ".html"
+}
+
+function wijzigFunc(){
+ 	modal.style.display = "block";
+ 	fetch("rest/msg/" + this.id)
+ 	.then(response => response.json())
+ 	.then(function(myJson){
+	 	document.getElementById("wijzigGegevens").innerHTML = '<h2> Artikel Wijzigen</h2>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Product ID: <input id="productnr" name="productnr" type="text" value="'+ myJson.id +  '" readonly><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Songnaam: <input name="songnaam" type="text" value="'+ myJson.naam +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Cover: <input name="cover" type="text" value="'+ myJson.cover +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Uitgavejaar: <input name="uitgavejaar" type="number" value="'+ myJson.uitgavejaar +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Genre: <input name="categorie" type="text" value="'+ myJson.categorie +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Verkoopprijs: <input name="prijs" type="number" value="'+ myJson.prijs +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Korting: <input name="korting" type="number" value="'+ myJson.aanbieding +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += '<input id="put" type="submit" value="Wijzig Artikel">';
+ 		document.getElementById("wijzigGegevens").innerHTML += '<input id="del" type="submit" value="Verwijder Artikel"><br><br>';
+		document.querySelector("#put").addEventListener("click", function(){
+			updateHandler(myJson.id);
+		});
+		document.querySelector("#del").addEventListener("click", function(){
+			deleteHandler(myJson.id);
+		});
+ 	});
+ }
+
+var updateHandler = function(id) {
+    var formData = new FormData(document.querySelector("#wijzigGegevens"));
+    var encData = new URLSearchParams(formData.entries());
+    fetch("rest/msg/" + id, { method: 'PUT', body: encData, headers: {'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")}})
+        .then(response => response.json())
+        .then(function (myJson) { console.log(myJson); })
+};
+
+
+var deleteHandler = function(id) {
+	fetch("rest/msg/" + id, {method: 'DELETE', headers: {'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")}})
+		.then(function (response) {
+			if (response.ok) {
+				console.log("artikel removed");
+				location.reload();
+			} else console.log("Unauthorized!");
+		})
+		.catch(error => console.log(error));
+		
 }
