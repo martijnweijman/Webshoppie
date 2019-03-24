@@ -38,5 +38,13 @@ public class KlantDaoOracleImplementatie extends Tooldatabase implements KlantDa
 		con.close();
 		return mijnKlant;
 	}
+	
+	public void voegKlantToe(Klant klant)  throws SQLException{
+		Connection con = super.getConnection();
+		Statement st= con.createStatement();
+		ResultSet rsKlant=st.executeQuery("insert into Klant values(BESTELLINGSREGEL_SEQ1.NEXTVAL,"+klant.getNaam()+","+ klant.getAfbeelding()+","+klant.getMijnAdres().getId()+","+ klant.getMijnAccount().getId()+")");
+		rsKlant.close();
+		con.close();
+	}
 
 }
