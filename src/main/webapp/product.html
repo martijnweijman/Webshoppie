@@ -21,8 +21,9 @@
 	href="styles/artists_responsive.css">
 <link rel="stylesheet" type="text/css" href="styles/product.css">
 <script src="js/aanroepen.js"></script>
+	<script src="js/winkelsysteem.js"></script>
 </head>
-<body>
+<body onload="winkelWagen.init(), initialiseerKnop()">
 
 	<!-- Navbar -->
 	<div w3-include-html="elementen/navbar.html"></div>
@@ -57,6 +58,7 @@
 			<div id="productCategorie"></div>
 			<div id="productBeschrijving"></div>
 			<div id="productPrijs"></div>
+			<div id="button"></div>
 		</div>
 	</div>
 
@@ -64,11 +66,12 @@
 	<!-- Footer -->
 	<div w3-include-html="elementen/footer.html"></div>
 
+	</div>
 	<script src="js/product.js"></script>
 	<script>
 		includeHTML()
 		var id = 1;
-		productInfo(id);
+		loadAanbiedingenProduct();
 	</script>
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="styles/bootstrap-4.1.2/popper.js"></script>

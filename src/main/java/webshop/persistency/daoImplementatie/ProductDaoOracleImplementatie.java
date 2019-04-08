@@ -23,7 +23,7 @@ public class ProductDaoOracleImplementatie extends Tooldatabase implements Produ
 		while (rsProduct.next()) {
 			mijnProduct.add(new Product(rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(5),
 					rsProduct.getString(7), rsProduct.getString(4), rsProduct.getInt(8), rsProduct.getString(6),
-					rsProduct.getInt(3)));
+					rsProduct.getDouble(3)));
 		}
 		rsProduct.close();
 		con.close();
@@ -38,7 +38,7 @@ public class ProductDaoOracleImplementatie extends Tooldatabase implements Produ
 		while (rsProduct.next()) {
 			mijnProduct = new Product(rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(5),
 					rsProduct.getString(7), rsProduct.getString(4), rsProduct.getInt(8), rsProduct.getString(6),
-					rsProduct.getInt(3));
+					rsProduct.getDouble(3));
 		}
 		rsProduct.close();
 		con.close();
@@ -103,27 +103,12 @@ public class ProductDaoOracleImplementatie extends Tooldatabase implements Produ
 		while (rsProduct.next()) {
 			mijnProductenBijCategorie.add(new Product(rsProduct.getInt(1), rsProduct.getString(2),
 					rsProduct.getString(5), rsProduct.getString(7), rsProduct.getString(4), rsProduct.getInt(8),
-					rsProduct.getString(6), rsProduct.getInt(3)));
+					rsProduct.getString(6), rsProduct.getDouble(3)));
 		}
 		rsProduct.close();
 		con.close();
 		return mijnProductenBijCategorie;
 	}
 
-	@Override
-	public Product geefEenProduct(Aanbieding a) throws SQLException {
-		Product mijnProduct = null;
-		Connection con = super.getConnection();
-		Statement st = con.createStatement();
-		ResultSet rsProduct = st.executeQuery("select * from Product where PRODUCTID = '" + a + "'");
-		while (rsProduct.next()) {
-			mijnProduct = new Product(rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(5),
-					rsProduct.getString(7), rsProduct.getString(4), rsProduct.getInt(8), rsProduct.getString(6),
-					rsProduct.getInt(3));
-		}
-		rsProduct.close();
-		con.close();
-		return mijnProduct;
-	}
 
 }
