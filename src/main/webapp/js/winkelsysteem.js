@@ -1,7 +1,5 @@
-loadAanbiedingenProduct()
 var PRODUCTEN = [];
 var totaalPrijs = 0;
-var producteninaanbieding = []
 
 let products = fetch("rest/msg/producten", {method:'GET', mode:'cors'})
     .then(response=>response.json())
@@ -11,19 +9,6 @@ let products = fetch("rest/msg/producten", {method:'GET', mode:'cors'})
        }
     });
 
-function loadAanbiedingenProduct() {
-	fetch("/webshop/rest/msg/aanbiedingen/producten")
-	  .then(response => response.json())
-	  .then(function(myJson) {
-		 
-		 for (const object of myJson) {
-			 let prod_id = object.id;
-			 let product = {"id":prod_id, "prijs":object.prijs};
-			 producteninaanbieding.push(product);
-		 }
-		 console.log(producteninaanbieding);
-})
-}
 
 const winkelWagen = {
     KEY: 'shoppingCart',
@@ -74,73 +59,41 @@ const winkelWagen = {
                    return true;
                 }
            });
-            let array = producteninaanbieding.filter(prod=>{
-            //for (const item of producteninaanbieding){
-            	if (prod.id == id){
-            		console.log("Zit in producteninaanbieding");
-                	if (arr && arr[0]){
-    	                let object = {
-    	                    id: arr[0].id,
-    	                    naam: arr[0].naam,
-    	                    artiest: arr[0].artiest,
-    	                    cover: arr[0].cover,
-    	                    uitgavejaar: arr[0].cover,
-    	                    beschrijving: arr[0].beschrijving,
-    	                    categorie: arr[0].categorie,
-    	                    // title: arr[0].title,
-    	                    qty: 1,
-    	                    prijs: arr[0].prijs,
-    	                    aanbieding: arr[0].aanbieding
-    	                };
-    	                winkelWagen.content.push(object);
-    	                winkelWagen.sync();
-               }else{
-                    console.error("Invalid product");
-               }
-            	}
-            	
-            	 else if (!prod.id == id) {
-                 	console.log("Zit niet in producteninaanbieding");
-                 	if (arr && arr[0]){
-     	                let object = {
-     	                    id: arr[0].id,
-     	                    naam: arr[0].naam,
-     	                    artiest: arr[0].artiest,
-     	                    cover: arr[0].cover,
-     	                    uitgavejaar: arr[0].cover,
-     	                    beschrijving: arr[0].beschrijving,
-     	                    categorie: arr[0].categorie,
-     	                    // title: arr[0].title,
-     	                    qty: 1,
-     	                    prijs: arr[0].prijs,
-     	                    aanbieding: arr[0].aanbieding
-     	                };
-     	                winkelWagen.content.push(object);
-     	                winkelWagen.sync();
-                }else{
-                     console.error("Invalid product");
-                }
-                 }
-            	
-            })
-//            if (producteninaanbieding.includes(id)) {
-//            	
-//           }
-        
-           
-            
+            if (arr && arr[0]){
+                let object = {
+                    id: arr[0].id,
+                    naam: arr[0].naam,
+                    artiest: arr[0].artiest,
+                    cover: arr[0].cover,
+                    uitgavejaar: arr[0].cover,
+                    beschrijving: arr[0].beschrijving,
+                    categorie: arr[0].categorie,
+                    //title: arr[0].title,
+                    qty: 1,
+                    prijs: arr[0].prijs,
+                    aanbieding: arr[0].aanbieding
+                };
+                winkelWagen.content.push(object);
+                winkelWagen.sync();
+           }else{
+                console.error("Invalid product");
+           }
         }
     },
-    /*
-	 * increase(id, qty=1){ winkelWagen.content =
-	 * winkelWagen.content.map(product=>{ if(product.id == id){ product.qty =
-	 * product.qty + qty; console.log("product qty = " + product.qty); return
-	 * product; } }); winkelWagen.sync(); },
-	 */
+    /*increase(id, qty=1){
+        winkelWagen.content = winkelWagen.content.map(product=>{
+            if(product.id == id){
+                product.qty = product.qty + qty;
+                console.log("product qty = " + product.qty);
+                return product;
+            }
+        });
+        winkelWagen.sync();
+    },*/
     reduce(id){
         for (const stuk of winkelWagen.content){
             if(stuk.id == id){
-                let totprijs = parseInt(window.sessionStorage.getItem('totaalPrijs'));
+                let totprijs = parseFloat(window.sessionStorage.getItem('totaalPrijs'));
                 totprijs = totprijs - stuk.prijs;
                 window.sessionStorage.setItem('totaalPrijs', totprijs);
                 winkelWagen.content.pop(stuk);
@@ -148,13 +101,17 @@ const winkelWagen = {
                 winkelWagen.sync();
             }
         }
-        /*
-		 * winkelWagen.content = winkelWagen.content.map(product=>{
-		 * if(product.id == id){ product.qty = product.qty - qty; return
-		 * product; } }); winkelWagen.content.forEach(async product=>{
-		 * if(product.id == id && product.qty == 0){ await
-		 * winkelWagen.remove(id); } });
-		 */
+        /*winkelWagen.content = winkelWagen.content.map(product=>{
+            if(product.id == id){
+                product.qty = product.qty - qty;
+                return product;
+            }
+        });
+        winkelWagen.content.forEach(async product=>{
+            if(product.id == id && product.qty == 0){
+                await winkelWagen.remove(id);
+            }
+        });*/
         winkelWagen.sync();
     },
     remove(id){
@@ -169,8 +126,8 @@ const winkelWagen = {
 
 
 function voegToeAanWinkelWagen(id){
-    // event.preventDefault();
-    // let id = parseInt(event.target.getAttribute('data-id'));
+    //event.preventDefault();
+    //let id = parseInt(event.target.getAttribute('data-id'));
    // console.log('voeg item ' + id + ' toe aan winkelwagen');
     winkelWagen.add(id, 1);
 }
@@ -183,7 +140,7 @@ function verlaagAantal(id){
 function removeRow(id){
     let cell = document.getElementById('totprijscell');
     let TotPrijs = window.sessionStorage.getItem('totaalPrijs');
-    cell.innerHTML = 'Totaalprijs = €' + parseInt(TotPrijs).toFixed(2);
+    cell.innerHTML = 'Totaalprijs = €' + parseFloat(TotPrijs).toFixed(2);
     let btn = document.getElementById(id);
     let row = btn.parentNode.parentNode;
     row.parentNode.removeChild(row);
@@ -216,7 +173,7 @@ async function laadWagen(){
     winkelwagen = await window.localStorage.getItem("shoppingCart");
     for (const item of JSON.parse(winkelwagen)) {
         if (item != null) {
-            let eindprijs = parseInt(item.qty) * parseFloat(item.prijs);
+            let eindprijs = parseFloat(item.qty) * parseFloat(item.prijs);
             let row = table.insertRow(1);
             let cell1 = row.insertCell(0);
             let cell2 = row.insertCell(1);
@@ -225,7 +182,7 @@ async function laadWagen(){
             btn2.id = item.id;
             btn2.className = 'btn';
             btn2.setAttribute("onclick", 'verlaagAantal(this.id)');
-            // btn.addEventListener('click', verhoogAantal);
+            //btn.addEventListener('click', verhoogAantal);
             cell1.innerHTML = item.naam;
             cell2.innerHTML = item.qty;
             cell3.innerHTML = "€" + eindprijs;
@@ -253,3 +210,8 @@ function verwerkBestelling(){
     eindWagen = JSON.parse(window.localStorage.getItem('shoppingCart'));
     
 }
+
+
+
+
+
