@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 package webshop.domain;
 
 public class Product {
@@ -114,9 +112,4 @@ public class Product {
 		this.productID = productID;
 	}
 	
-	
-	
-	
-
 }
->>>>>>> parent of 47a74c8... Merge branch 'master' into chris
