@@ -1,9 +1,7 @@
 /* JS Document */
 
 /******************************
-
 [Table of Contents]
-
 1. Vars and Inits
 2. Set Header
 3. Init Menu
@@ -13,8 +11,6 @@
 7. Init Single Player
 8. Init Album Player
 9. Init Parallax
-
-
 ******************************/
 
 $(document).ready(function()
@@ -22,9 +18,7 @@ $(document).ready(function()
 	"use strict";
 
 	/*
-
 	1. Vars and Inits
-
 	*/
 
 	var header = $('.header');
@@ -57,9 +51,7 @@ $(document).ready(function()
 	});
 
 	/*
-
 	2. Set Header
-
 	*/
 
 	function setHeader()
@@ -75,9 +67,7 @@ $(document).ready(function()
 	}
 
 	/*
-
 	3. Init Menu
-
 	*/
 
 	function initMenu()
@@ -101,9 +91,7 @@ $(document).ready(function()
 	}
 
 	/*
-
 	4. Init Home Slider
-
 	*/
 
 	function initHomeSlider()
@@ -134,9 +122,7 @@ $(document).ready(function()
 	}
 
 	/*
-
 	5. Init Dropdown
-
 	*/
 
 	function initDropdown()
@@ -191,9 +177,7 @@ $(document).ready(function()
 	}
 
 	/*
-
 	6. Init Scrolling
-
 	*/
 
 	function initScrolling()
@@ -215,9 +199,7 @@ $(document).ready(function()
     }
 
     /*
-
 	7. Init Single Player
-
 	*/
 
 	function initSinglePlayer()
@@ -256,9 +238,7 @@ $(document).ready(function()
 	}
 
 	/*
-
 	8. Init Album Player
-
 	*/
 
 	function initAlbumPlayer()
@@ -275,37 +255,37 @@ $(document).ready(function()
 					poster:"images/featured_1.jpg"
 				},
 				{
-					title:"Dubstep",
-					artist:"Bensound",
-					album:"DJ Mind",
+					title:"Carless Whispers",
+					artist:"George Michael",
+					album:"Best of George",
 					mp3:"files/bensound-dubstep.mp3",
 					poster:"images/featured_2.jpg"
 				},
 				{
-					title:"Sunny",
-					artist:"Bensound",
-					album:"Dublin Dub",
+					title:"La Bamba",
+					artist:"Los Lobos",
+					album:"LALALALA BAMBA",
 					mp3:"files/bensound-sunny.mp3",
 					poster:"images/featured_3.jpg"
 				},
 				{
-					title:"Better Days",
-					artist:"Bensound",
-					album:"Ocean Vibes",
+					title:"Boogie Wonderland",
+					artist:"Earth, Wind & Fire",
+					album:"BOOGIEWOOGIE",
 					mp3:"files/bensound-betterdays.mp3",
 					poster:"images/featured_4.jpg"
 				},
 				{
-					title:"Dubstep",
-					artist:"Bensound",
-					album:"DJ Mind",
+					title:"Toto",
+					artist:"Africa",
+					album:"Big 5",
 					mp3:"files/bensound-dubstep.mp3",
 					poster:"images/featured_5.jpg"
 				},
 				{
-					title:"Sunny",
-					artist:"Bensound",
-					album:"Dublin Dub",
+					title:"Rasputin",
+					artist:"Boney M",
+					album:"Boney Man",
 					mp3:"files/bensound-sunny.mp3",
 					poster:"images/featured_6.jpg"
 				}
@@ -423,9 +403,7 @@ $(document).ready(function()
 	}
 
 	/*
-
 	9. Init Parallax
-
 	*/
 
 	function initParallax()

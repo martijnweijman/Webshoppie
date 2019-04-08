@@ -78,7 +78,7 @@ public class OpvangResource {
 			job.add("naam", p.getProductNaam());
 			job.add("artiest", p.getArtiest());
 			job.add("prijs", p.getProductPrijs());
-//			job.add("categorie", p.getMijnCategory().getNaam());
+			job.add("categorie", p.getMijnCategory());
 			job.add("uitgavejaar", p.getUitgavejaar());
 			job.add("beschrijving", p.getProductBeschrijving());
 //			job.add("cover", p.getCover());
