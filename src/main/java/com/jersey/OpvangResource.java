@@ -174,6 +174,34 @@ public class OpvangResource {
 		return Response.status(200).entity(array.toString()).build();
 	}
 
+////	Getten van alle aanbiedingen
+//	@GET
+//	@Produces("application/json")
+//	@Path("/aanbiedingen")
+//	public Response getAanbiedingem(@PathParam("param") int msg) throws SQLException {
+//
+//		Product p = PDao.geefEenProduct(msg);
+//		JsonArrayBuilder jab = Json.createArrayBuilder();
+//		Aanbieding a = ADao.geefMijnAanbiedingen(msg);
+//		if (a.getId() == msg) {
+//			JsonObjectBuilder job = Json.createObjectBuilder();
+//			System.out.println("1");
+//			job.add("aanbiedingid", a.getId());
+//			System.out.println("2");
+//			job.add("startdatum", a.getVanDatum().toString());
+//			System.out.println("3");
+//			job.add("einddatum", a.getTotDatum().toString());
+//			System.out.println("4");
+//			job.add("productid", p.getProductID());
+//			System.out.println("5");
+//			job.add("kortingspercentage", a.getKortingsPercentage());
+//			jab.add(job);
+//		}
+//
+//		JsonArray array = jab.build();
+//		return Response.status(200).entity(array.toString()).build();
+//	}
+	
 //	Getten van specifieke aanbieding
 	@GET
 	@Produces("application/json")

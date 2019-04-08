@@ -1,21 +1,18 @@
 /* JS Document */
 
-/******************************
-[Table of Contents]
-1. Vars and Inits
-2. Set Header
-3. Init Menu
-4. Init Single Player
-******************************/
+/*******************************************************************************
+ * [Table of Contents] 1. Vars and Inits 2. Set Header 3. Init Menu 4. Init
+ * Single Player
+ ******************************************************************************/
 loadProducten();
 loadCategorie();
 $(document).ready(function()
 {
 	"use strict";
 
-	/* 
-	1. Vars and Inits
-	*/
+	/*
+	 * 1. Vars and Inits
+	 */
 
 	var header = $('.header');
 	var cdd = $('.custom_dropdown');
@@ -41,9 +38,9 @@ $(document).ready(function()
 		setHeader();
 	});
 
-	/* 
-	2. Set Header
-	*/
+	/*
+	 * 2. Set Header
+	 */
 
 	function setHeader()
 	{
@@ -57,9 +54,9 @@ $(document).ready(function()
 		}
 	}
 	
-	/* 
-	3. Init Menu
-	*/
+	/*
+	 * 3. Init Menu
+	 */
 
 	function initMenu()
 	{
@@ -81,9 +78,9 @@ $(document).ready(function()
 		}
 	}
 
-    /* 
-	4. Init Single Player
-	*/
+    /*
+	 * 4. Init Single Player
+	 */
 
 	function initSinglePlayer()
 	{
@@ -103,7 +100,8 @@ $(document).ready(function()
 						mp3:songUrl
 					});
 				},
-				play: function() { // To avoid multiple jPlayers playing together.
+				play: function() { // To avoid multiple jPlayers playing
+									// together.
 					$(this).jPlayer("pauseOthers");
 				},
 				swfPath: "plugins/jPlayer",
@@ -239,14 +237,16 @@ function loadCategorie() {
 		.then(response => response.json())
 	 	.then(function(myJson){
 			 for (const object of myJson) {
-	  	document.getElementById("lijst").innerHTML += "<li><a onclick= 'sorteerProductenOpCategorie("+ object.naam +")'>" + object.naam + "</a></li>";
+				 document.getElementById("lijst").innerHTML += "<li><button type='button' id=" + object.naam + ")>" + object.naam + "</button></li>"
+				 var knop = document.getElementById(object.naam);
+				 knop.addEventListener('click', sorteerProductenOpCategorie(object.naam));
 			 }
 	 	});
 		 	
 		 	}
 
 function sorteerProductenOpCategorie(categorie) {
-		    fetch("rest/msg/categorien" + categorie)
+		    fetch("rest/msg/categorien/" + categorie)
 		  .then(response => response.json())
 		  .then(function(myJson) {
 			 var tabel = document.getElementById("tabel");
