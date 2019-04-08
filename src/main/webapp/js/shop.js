@@ -229,7 +229,6 @@ var deleteHandler = function(id) {
 			} else console.log("Unauthorized!");
 		})
 		.catch(error => console.log(error));
-		
 }
 
 function loadCategorie() {
@@ -237,9 +236,7 @@ function loadCategorie() {
 		.then(response => response.json())
 	 	.then(function(myJson){
 			 for (const object of myJson) {
-				 document.getElementById("lijst").innerHTML += "<li><button type='button' id=" + object.naam + ")>" + object.naam + "</button></li>"
-				 var knop = document.getElementById(object.naam);
-				 knop.addEventListener('click', sorteerProductenOpCategorie(object.naam));
+				 document.querySelector("#lijst").innerHTML += "<li><button type='button' id='s1' value="+object.naam+" onClick='sorteerProductenOpCategorie(this.value)')>" + object.naam + "</button></li>"
 			 }
 	 	});
 		 	

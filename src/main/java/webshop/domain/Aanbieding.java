@@ -2,22 +2,24 @@ package webshop.domain;
 
 import java.util.Date;
 
+import javax.json.JsonValue;
+
 public class Aanbieding {
 	private int id;
 	private Date vanDatum;
 	private Date totDatum;
 	private int kortingsPercentage;
-	private Product mijnProduct;
+	private int mijnProduct;
 	
-	public Aanbieding(int id, Date vanDatum, Date totDatum, int kortingsPercentage) {
-		super();
-		this.id = id;
-		this.vanDatum = vanDatum;
-		this.totDatum = totDatum;
-		this.kortingsPercentage = kortingsPercentage;
-	}
+//	public Aanbieding(int id, Date vanDatum, Date totDatum, int kortingsPercentage) {
+//		super();
+//		this.id = id;
+//		this.vanDatum = vanDatum;
+//		this.totDatum = totDatum;
+//		this.kortingsPercentage = kortingsPercentage;
+//	}
 
-	public Aanbieding(int id, Date vanDatum, Date totDatum, int kortingsPercentage, Product mijnProduct) {
+	public Aanbieding(int id, Date vanDatum, Date totDatum, int kortingsPercentage, int mijnProduct) {
 		super();
 		this.id = id;
 		this.vanDatum = vanDatum;
@@ -58,11 +60,12 @@ public class Aanbieding {
 		this.kortingsPercentage = kortingsPercentage;
 	}
 
-	public Product getMijnProduct() {
+	public int getMijnProduct() {
 		return mijnProduct;
 	}
 
-	public void setMijnProduct(Product mijnProduct) {
+	public void setMijnProduct(int mijnProduct) {
 		this.mijnProduct = mijnProduct;
 	}
+
 }

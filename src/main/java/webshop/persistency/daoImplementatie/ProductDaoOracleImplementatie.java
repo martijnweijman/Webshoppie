@@ -102,12 +102,28 @@ public class ProductDaoOracleImplementatie extends Tooldatabase implements Produ
 		ResultSet rsProduct = st.executeQuery("select * from product where categorie = '" + categorie + "'");
 		while (rsProduct.next()) {
 			mijnProductenBijCategorie.add(new Product(rsProduct.getInt(1), rsProduct.getString(2),
-					rsProduct.getString(5), rsProduct.getString(7), rsProduct.getString(5), rsProduct.getInt(8),
+					rsProduct.getString(5), rsProduct.getString(7), rsProduct.getString(4), rsProduct.getInt(8),
 					rsProduct.getString(6), rsProduct.getInt(3)));
 		}
 		rsProduct.close();
 		con.close();
 		return mijnProductenBijCategorie;
+	}
+
+	@Override
+	public Product geefEenProduct(Aanbieding a) throws SQLException {
+		Product mijnProduct = null;
+		Connection con = super.getConnection();
+		Statement st = con.createStatement();
+		ResultSet rsProduct = st.executeQuery("select * from Product where PRODUCTID = '" + a + "'");
+		while (rsProduct.next()) {
+			mijnProduct = new Product(rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(5),
+					rsProduct.getString(7), rsProduct.getString(4), rsProduct.getInt(8), rsProduct.getString(6),
+					rsProduct.getInt(3));
+		}
+		rsProduct.close();
+		con.close();
+		return mijnProduct;
 	}
 
 }

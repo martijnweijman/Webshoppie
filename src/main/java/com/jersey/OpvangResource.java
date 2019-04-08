@@ -174,34 +174,29 @@ public class OpvangResource {
 		return Response.status(200).entity(array.toString()).build();
 	}
 
-////	Getten van alle aanbiedingen
-//	@GET
-//	@Produces("application/json")
-//	@Path("/aanbiedingen")
-//	public Response getAanbiedingem(@PathParam("param") int msg) throws SQLException {
-//
-//		Product p = PDao.geefEenProduct(msg);
-//		JsonArrayBuilder jab = Json.createArrayBuilder();
-//		Aanbieding a = ADao.geefMijnAanbiedingen(msg);
-//		if (a.getId() == msg) {
-//			JsonObjectBuilder job = Json.createObjectBuilder();
-//			System.out.println("1");
-//			job.add("aanbiedingid", a.getId());
-//			System.out.println("2");
-//			job.add("startdatum", a.getVanDatum().toString());
-//			System.out.println("3");
-//			job.add("einddatum", a.getTotDatum().toString());
-//			System.out.println("4");
-//			job.add("productid", p.getProductID());
-//			System.out.println("5");
-//			job.add("kortingspercentage", a.getKortingsPercentage());
-//			jab.add(job);
-//		}
-//
-//		JsonArray array = jab.build();
-//		return Response.status(200).entity(array.toString()).build();
-//	}
-	
+//	Getten van alle aanbiedingen
+	@GET
+	@Produces("application/json")
+	@Path("aanbiedingen")
+	public Response getAanbiedingen() throws SQLException {
+
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		AanbiedingDao aanD = new AanbiedingDaoOracleImplementatie();
+		for (Aanbieding a : aanD.geefAlleAanbiedingen()) {
+
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("aanbiedingid", a.getId());
+			job.add("startdatum", a.getVanDatum().toString());
+			job.add("einddatum", a.getTotDatum().toString());
+			job.add("productid", a.getMijnProduct());
+			job.add("kortingspercentage", a.getKortingsPercentage());
+			jab.add(job);
+		}
+
+		JsonArray array = jab.build();
+		return Response.status(200).entity(array.toString()).build();
+	}
+
 //	Getten van specifieke aanbieding
 	@GET
 	@Produces("application/json")
@@ -213,15 +208,10 @@ public class OpvangResource {
 		Aanbieding a = ADao.geefMijnAanbiedingen(msg);
 		if (a.getId() == msg) {
 			JsonObjectBuilder job = Json.createObjectBuilder();
-			System.out.println("1");
 			job.add("aanbiedingid", a.getId());
-			System.out.println("2");
 			job.add("startdatum", a.getVanDatum().toString());
-			System.out.println("3");
 			job.add("einddatum", a.getTotDatum().toString());
-			System.out.println("4");
-			job.add("productid", p.getProductID());
-			System.out.println("5");
+			job.add("productid", a.getMijnProduct());
 			job.add("kortingspercentage", a.getKortingsPercentage());
 			jab.add(job);
 		}
@@ -229,7 +219,40 @@ public class OpvangResource {
 		JsonArray array = jab.build();
 		return Response.status(200).entity(array.toString()).build();
 	}
-	
+
+//	Getten van alle producten in de aanbieding
+	@GET
+	@Produces("application/json")
+	@Path("aanbiedingen/producten")
+	public Response getProductAanbiedingen() throws SQLException {
+
+		ProductDao prdD = new ProductDaoOracleImplementatie();
+		AanbiedingDao aanD = new AanbiedingDaoOracleImplementatie();
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		for (Aanbieding a : aanD.geefAlleAanbiedingen()) {
+			for (Product p : prdD.geefAlleProducten()) {
+				if (p.getProductID() == a.getMijnProduct()) {
+					System.out.println("naam:" + p.getProductNaam() + "  categorie:" + p.getMijnCategory() + "  korting:" + a.getKortingsPercentage());
+					JsonObjectBuilder job = Json.createObjectBuilder();
+					job.add("id", p.getProductID());
+					job.add("naam", p.getProductNaam());
+					job.add("artiest", p.getArtiest());
+					job.add("prijs", p.getProductPrijs());
+					job.add("categorie", p.getMijnCategory());
+					job.add("uitgavejaar", p.getUitgavejaar());
+					job.add("beschrijving", p.getProductBeschrijving());
+//					job.add("cover", p.getCover());
+//					job.add("aanbieding", p.getMijnAanbieding());
+					job.add("kortingspercentage", a.getKortingsPercentage());
+					jab.add(job);
+				}
+			}
+		}
+
+		JsonArray array = jab.build();
+		return Response.status(200).entity(array.toString()).build();
+	}
+
 //	Posten van bestelling
 //	@POST
 //	@RolesAllowed("klant")
