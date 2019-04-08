@@ -23,6 +23,8 @@ const winkelWagen = {
     empty(){
         winkelWagen.content = [];
         winkelWagen.sync();
+        window.sessionStorage.setItem("totaalPrijs", 0);
+        location.reload();
     },
     async sync(){
         let _winkelwagen = JSON.stringify(winkelWagen.content);
@@ -40,12 +42,19 @@ const winkelWagen = {
         }
     },
     add(id){
+        console.log(id);
+        parseInt(id);
         if (winkelWagen.find(id)){
             alert("Product zit al in winkelmand");
         }else{
             let arr = PRODUCTEN.filter(product=>{
                 if(product.id == id){
-                    totaalPrijs = totaalPrijs + product.prijs;
+                    if (window.sessionStorage.getItem("totaalPrijs")) {
+                        totaalPrijs = parseInt(window.sessionStorage.getItem("totaalPrijs")) + product.prijs;
+                    }
+                    else{
+                        totaalPrijs = 0 + product.prijs;
+                    }
                     window.sessionStorage.setItem('totaalPrijs', totaalPrijs);
                    return true;
                 }
@@ -89,6 +98,7 @@ const winkelWagen = {
                 window.sessionStorage.setItem('totaalPrijs', totprijs);
                 winkelWagen.content.pop(stuk);
                 removeRow(id);
+                winkelWagen.sync();
             }
         }
         /*winkelWagen.content = winkelWagen.content.map(product=>{
@@ -171,7 +181,7 @@ async function laadWagen(){
             let cell4 = row.insertCell(3);
             btn2.id = item.id;
             btn2.className = 'btn';
-            btn2.setAttribute('onclick', 'verlaagAantal(this.id)');
+            btn2.setAttribute("onclick", 'verlaagAantal(this.id)');
             //btn.addEventListener('click', verhoogAantal);
             cell1.innerHTML = item.naam;
             cell2.innerHTML = item.qty;
@@ -184,6 +194,11 @@ async function laadWagen(){
     let cell = row.insertCell(-1);
     cell.id = 'totprijscell';
     cell.innerHTML = 'Totaalprijs = €' + parseInt(TotPrijs).toFixed(2);
+    let gooiLeegBtn = document.createElement("input");
+    gooiLeegBtn.type = "button";
+    gooiLeegBtn.value = "Leeg winkelwagen";
+    gooiLeegBtn.addEventListener("click", winkelWagen.empty);
+    tabel.appendChild(gooiLeegBtn);
 }
 
 function searchPerson(){
