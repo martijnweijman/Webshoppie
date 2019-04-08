@@ -10,24 +10,23 @@ public class Product {
 	private String productBeschrijving;
 	private double productPrijs;
 	private Aanbieding mijnAanbieding;
-	private String mijnCategory;
+	private Category mijnCategory;
 	
 
-	public Product(int productID,String productNaam, String artiest, String cover, String mijnCategory, int uitgavejaar,
+	public Product(int productID,String productNaam, String artiest, String cover, int uitgavejaar,
 			String productBeschrijving, int productPrijs) {
 		super();
 		this.productID = productID;
 		this.productNaam = productNaam;
 		this.artiest = artiest;
 		this.cover = cover;
-		this.mijnCategory = mijnCategory;
 		this.uitgavejaar = uitgavejaar;
 		this.productBeschrijving = productBeschrijving;
 		this.productPrijs = productPrijs;
 	}
 
 	public Product(int productID,String productNaam, String artiest, String cover, int uitgavejaar,
-			String productBeschrijving, int productPrijs, Aanbieding mijnAanbieding, String mijnCategory) {
+			String productBeschrijving, int productPrijs, Aanbieding mijnAanbieding, Category mijnCategory) {
 		super();
 		this.productID = productID;
 		this.productNaam = productNaam;
@@ -72,11 +71,11 @@ public class Product {
 		this.mijnAanbieding = mijnAanbieding;
 	}
 
-	public String getMijnCategory() {
+	public Category getMijnCategory() {
 		return mijnCategory;
 	}
 
-	public void setMijnCategory(String mijnCategory) {
+	public void setMijnCategory(Category mijnCategory) {
 		this.mijnCategory = mijnCategory;
 	}
 

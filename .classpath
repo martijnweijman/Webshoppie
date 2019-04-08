@@ -24,6 +24,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Program Files/Apache Tomcat/apache-tomcat-9.0.16/lib/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Daan Pepping/apache-tomcat-9.0.16/apache-tomcat-9.0.16/lib/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="ojdbc6.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

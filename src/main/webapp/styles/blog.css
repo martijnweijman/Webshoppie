@@ -49,8 +49,8 @@ div
 	display: block;
 	position: relative;
 	-webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 ul
 {
@@ -120,7 +120,7 @@ p a:hover::after
 }
 p::selection
 {
-	
+
 }
 h1{font-size: 48px;}
 h2{font-size: 36px;}
@@ -137,14 +137,14 @@ h1, h2, h3, h4, h5, h6
 	color: #2a2a2a;
 	font-weight: 700;
 }
-h1::selection, 
-h2::selection, 
-h3::selection, 
-h4::selection, 
-h5::selection, 
+h1::selection,
+h2::selection,
+h3::selection,
+h4::selection,
+h5::selection,
 h6::selection
 {
-	
+
 }
 img
 {
@@ -240,8 +240,8 @@ section
 }
 .parallax-window
 {
-    min-height: 400px;
-    background: transparent;
+	min-height: 400px;
+	background: transparent;
 }
 .parallax_background
 {
@@ -298,12 +298,12 @@ section
 	position: relative;
 	overflow: hidden;
 	width: 200px;
-    height: 56px;
-    border-radius: 22px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    text-align: center;
+	height: 56px;
+	border-radius: 22px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
 }
 .button::after
 {
@@ -333,20 +333,20 @@ section
 {
 	position: relative;
 	font-size: 14px;
-    font-weight: 700;
-    color: #ffffff;
-    text-transform: uppercase;
-    z-index: 1;
-    line-height: 56px;
+	font-weight: 700;
+	color: #ffffff;
+	text-transform: uppercase;
+	z-index: 1;
+	line-height: 56px;
 }
 .button span
 {
 	position: relative;
 	font-size: 14px;
-    font-weight: 700;
-    color: #ffffff;
-    line-height: 56px;
-    text-transform: uppercase;
+	font-weight: 700;
+	color: #ffffff;
+	line-height: 56px;
+	text-transform: uppercase;
 	z-index: 1;
 }
 .section_title h1
@@ -675,7 +675,7 @@ section
 {
 	position: relative;
 	display: inline-block;
-	
+
 }
 .menu_nav ul li::after
 {
@@ -975,16 +975,16 @@ section
 	width: 208px;
 	height: 56px;
 	border-radius: 22px;
-    cursor: pointer;
+	cursor: pointer;
 }
 .newsletter_button span
 {
 	position: relative;
 	font-size: 14px;
-    font-weight: 700;
-    color: #ffffff;
-    line-height: 56px;
-    text-transform: uppercase;
+	font-weight: 700;
+	color: #ffffff;
+	line-height: 56px;
+	text-transform: uppercase;
 	z-index: 1;
 }
 .newsletter_input::-webkit-input-placeholder
@@ -1004,9 +1004,9 @@ section
 	font-size: 16px !important;
 	font-weight: 600 !important;
 	color: #6d6d6d !important;
-} 
+}
 .newsletter_input:-ms-input-placeholder
-{ 
+{
 	font-size: 16px !important;
 	font-weight: 600 !important;
 	color: #6d6d6d !important;
@@ -1092,4 +1092,20 @@ section
 {
 	height: 49px;
 	line-height: 49px;
+}
+
+#winkelwagen{
+	text-align: center;
+}
+
+.btn{
+    width: 57px;
+}
+
+table, tr, th, td{
+    border: 1px solid black;
+}
+
+td{
+    text-align: center;
 }
