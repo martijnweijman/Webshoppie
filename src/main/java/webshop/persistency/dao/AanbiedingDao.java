@@ -7,6 +7,6 @@ import webshop.domain.Product;
 
 public interface AanbiedingDao  {
 	List<Aanbieding> geefAlleAanbiedingen() throws SQLException;
-	Aanbieding geefMijnAanbiedingen(Product p) throws SQLException;
+	Aanbieding geefMijnAanbiedingen(Product prod) throws SQLException;
 
 }
