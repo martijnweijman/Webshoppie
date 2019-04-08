@@ -26,8 +26,6 @@ public class Aanbieding {
 		this.mijnProduct = mijnProduct;
 	}
 
-
-
 	public int getId() {
 		return id;
 	}

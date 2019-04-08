@@ -1,20 +1,25 @@
 /* JS Document */
 
 /******************************
+
 [Table of Contents]
+
 1. Vars and Inits
 2. Set Header
 3. Init Menu
 4. Init Single Player
+
+
 ******************************/
 loadProducten();
-loadCategorie();
 $(document).ready(function()
 {
 	"use strict";
 
 	/* 
+
 	1. Vars and Inits
+
 	*/
 
 	var header = $('.header');
@@ -42,7 +47,9 @@ $(document).ready(function()
 	});
 
 	/* 
+
 	2. Set Header
+
 	*/
 
 	function setHeader()
@@ -58,7 +65,9 @@ $(document).ready(function()
 	}
 	
 	/* 
+
 	3. Init Menu
+
 	*/
 
 	function initMenu()
@@ -82,7 +91,9 @@ $(document).ready(function()
 	}
 
     /* 
+
 	4. Init Single Player
+
 	*/
 
 	function initSinglePlayer()
@@ -160,17 +171,19 @@ function loadProducten() {
 			 var cell8 = rij.insertCell(7);
 			 var cell9 = rij.insertCell(8);
 			 var cell10 = rij.insertCell(9);
+			 var cell11 = rij.insertCell(10);
 			 
 			 cell1.innerHTML = object.id;
 			 cell2.innerHTML = object.naam;
 			 cell3.innerHTML = object.artiest;
-			 cell4.innerHTML = object.uitgavejaar;
-			 cell5.innerHTML = object.beschrijving;
-			 cell6.innerHTML = object.categorie;
-			 cell7.innerHTML = '€' + object.prijs.toFixed(2);
-			 cell8.innerHTML =  object.aanbieding;
-			 cell9.innerHTML = '<input class="koopbtn" id="'+ object.id + '" type="submit" value="Koop">';
-			 cell10.innerHTML = '<input class="wijzigbtn" id="'+ object.id + '" type="submit" value="Wijzig">';
+			 cell4.innerHTML = object.cover;
+			 cell5.innerHTML = object.uitgavejaar;
+			 cell6.innerHTML = object.beschrijving;
+			 cell7.innerHTML = object.categorie;
+			 cell8.innerHTML = '€' + object.prijs.toFixed(2);
+			 cell9.innerHTML =  object.aanbieding;
+			 cell10.innerHTML = '<input class="koopbtn" id="'+ object.id + '" type="submit" value="Koop">';
+			 cell11.innerHTML = '<input class="wijzigbtn" id="'+ object.id + '" type="submit" value="Wijzig">';
 			 
 			 var valueKoop = document.querySelector("#tabel input[value='Koop']");
 			valueKoop.addEventListener("click", redirectFunc);
@@ -183,7 +196,7 @@ function loadProducten() {
 }
 
 function redirectFunc(){
-	window.location.href = "http://localhost:8081/webshop/product.html?id=" + this.id;
+	window.location.href = "http://localhost:8081/webshop/" + this.id + ".html"
 }
 
 function wijzigFunc(){
@@ -200,6 +213,7 @@ function wijzigFunc(){
  		document.getElementById("wijzigGegevens").innerHTML += 'Uitgavejaar: <input name="uitgavejaar" type="number" value="'+ object.uitgavejaar +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += 'Genre: <input name="categorie" type="text" value="'+ object.categorie +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += 'Verkoopprijs: <input name="prijs" type="number" value="'+ object.prijs +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Korting: <input name="aanbieding" type="number" value="'+ object.aanbieding +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += 'Beschrijving: <input name="beschrijving" type="text" value="'+ object.beschrijving +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += '<input id="put" type="submit" value="Wijzig Artikel">';
  		document.getElementById("wijzigGegevens").innerHTML += '<input id="del" type="submit" value="Verwijder Artikel"><br><br>';
@@ -232,60 +246,4 @@ var deleteHandler = function(id) {
 		})
 		.catch(error => console.log(error));
 		
-}
-
-function loadCategorie() {
-	  fetch("rest/msg/categorien")
-		.then(response => response.json())
-	 	.then(function(myJson){
-			 for (const object of myJson) {
-	  	document.getElementById("lijst").innerHTML += "<li><a onclick= 'sorteerProductenOpCategorie("+ object.naam +")'>" + object.naam + "</a></li>";
-			 }
-	 	});
-		 	
-		 	}
-
-function sorteerProductenOpCategorie(categorie) {
-		    fetch("rest/msg/categorien" + categorie)
-		  .then(response => response.json())
-		  .then(function(myJson) {
-			 var tabel = document.getElementById("tabel");
-
-			 while (1 < tabel.rows.length)
-			 {
-			  tabel.deleteRow(1);
-			 }
-			 for (const object of myJson) {
-				 var rij = tabel.insertRow(1);
-				 
-				 var cell1 = rij.insertCell(0);
-				 var cell2 = rij.insertCell(1);
-				 var cell3 = rij.insertCell(2);
-				 var cell4 = rij.insertCell(3);
-				 var cell5 = rij.insertCell(4);
-				 var cell6 = rij.insertCell(5);
-				 var cell7 = rij.insertCell(6);
-				 var cell8 = rij.insertCell(7);
-				 var cell9 = rij.insertCell(8);
-				 var cell10 = rij.insertCell(9);
-				 
-				 cell1.innerHTML = object.id;
-				 cell2.innerHTML = object.naam;
-				 cell3.innerHTML = object.artiest;
-				 cell4.innerHTML = object.uitgavejaar;
-				 cell5.innerHTML = object.beschrijving;
-				 cell6.innerHTML = object.categorie;
-				 cell7.innerHTML = '€' + object.prijs.toFixed(2);
-				 cell8.innerHTML =  object.aanbieding;
-				 cell9.innerHTML = '<input class="koopbtn" id="'+ object.id + '" type="submit" value="Koop">';
-				 cell10.innerHTML = '<input class="wijzigbtn" id="'+ object.id + '" type="submit" value="Wijzig">';
-				 
-				 var valueKoop = document.querySelector("#tabel input[value='Koop']");
-				valueKoop.addEventListener("click", redirectFunc);
-				
-				 var valueWijzig = document.querySelector("#tabel input[value='Wijzig']");
-				 valueWijzig.addEventListener("click", wijzigFunc);
-			 }
-			 
-		  }) .catch(error => alert("Er konden geen producten gevonden worden in deze categorie"));;
 }

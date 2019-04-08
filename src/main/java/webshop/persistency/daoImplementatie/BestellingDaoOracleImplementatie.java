@@ -38,13 +38,5 @@ public class BestellingDaoOracleImplementatie extends Tooldatabase implements Be
 		con.close();
 		return mijnBestelling;
 	}
-	
-	public void verwerkBestelling(Bestelling best) throws SQLException {
-		Connection con = super.getConnection();
-		Statement st= con.createStatement();
-		ResultSet rsBestelling=st.executeQuery("insert into bestelling values(bestelling_SEQ.NEXTVAL,"+best.getMijnAdres().getId() +")");
-		rsBestelling.close();
-		con.close();
-	}
 
 }

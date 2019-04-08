@@ -9,9 +9,12 @@ public class Bestelling {
 	private Adres mijnAdres;
 	private List<Bestellingsregel> mijnBestellingsregels;
 	
-	public Bestelling(int id) {
+	public Bestelling(int id, String afleverAdres, Adres mijnAdres, List<Bestellingsregel> mijnBestellingsregels) {
 		super();
 		this.id = id;
+		this.afleverAdres = afleverAdres;
+		this.mijnAdres = mijnAdres;
+		this.mijnBestellingsregels = mijnBestellingsregels;
 	}
 	
 	public Bestelling(int id, String afleverAdres) {
@@ -41,8 +44,8 @@ public class Bestelling {
 	public List<Bestellingsregel> getMijnBestellingsregels() {
 		return mijnBestellingsregels;
 	}
-	public void setMijnBestellingsregels(Bestellingsregel bestellingsregel) {
-		mijnBestellingsregels.add(bestellingsregel);
+	public void setMijnBestellingsregels(List<Bestellingsregel> mijnBestellingsregels) {
+		this.mijnBestellingsregels = mijnBestellingsregels;
 	}
 	
 	

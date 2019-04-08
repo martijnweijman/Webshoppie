@@ -22,7 +22,8 @@ public class ProductDaoOracleImplementatie extends Tooldatabase implements Produ
 		ResultSet rsProduct = st.executeQuery("select * from Product");
 		while (rsProduct.next()) {
 			mijnProduct.add(new Product(rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(5),
-					rsProduct.getString(7), rsProduct.getInt(8), rsProduct.getString(6), rsProduct.getInt(3)));
+					rsProduct.getString(7), rsProduct.getString(5), rsProduct.getInt(8), rsProduct.getString(6),
+					rsProduct.getInt(3)));
 		}
 		rsProduct.close();
 		con.close();
@@ -36,7 +37,8 @@ public class ProductDaoOracleImplementatie extends Tooldatabase implements Produ
 		ResultSet rsProduct = st.executeQuery("select * from Product where PRODUCTID = '" + id + "'");
 		while (rsProduct.next()) {
 			mijnProduct = new Product(rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(5),
-					rsProduct.getString(7), rsProduct.getInt(8), rsProduct.getString(6), rsProduct.getInt(3));
+					rsProduct.getString(7), rsProduct.getString(5), rsProduct.getInt(8), rsProduct.getString(6),
+					rsProduct.getInt(3));
 		}
 		rsProduct.close();
 		con.close();
@@ -63,9 +65,9 @@ public class ProductDaoOracleImplementatie extends Tooldatabase implements Produ
 		Connection con = super.getConnection();
 		Statement st = con.createStatement();
 		ResultSet rsProduct = st.executeQuery(
-				"insert into product (productid, albumnaam, prijs, categorie, artiest, beschrijving, cover, uitgavejaar, aanbieding) values ("
-						+ "PRODUCT_SEQ.nextval" + ", '" + naam + "', " + prijs + ", '" + categorie + "', '" + artiest + "', '" + beschrijving
-						+ "', '" + cover + "', " + uitgavejaar + ", " + aanbieding + ");");
+				"insert into product (productid, albumnaam, prijs, categorie, artiest, beschrijving, cover, uitgavejaar) values ("
+						+ "PRODUCT_SEQ.nextval" + ", '" + naam + "', " + prijs + ", '" + categorie + "', '" + artiest
+						+ "', '" + beschrijving + "', '" + cover + "', " + uitgavejaar + ")");
 		waarheid = true;
 		rsProduct.close();
 		con.close();
@@ -82,14 +84,30 @@ public class ProductDaoOracleImplementatie extends Tooldatabase implements Produ
 			Statement st = con.createStatement();
 			ResultSet rsProduct = st.executeQuery("update product set albumnaam = '" + naam + "', prijs = " + prijs
 					+ ", categorie = '" + categorie + "', artiest = '" + artiest + "', beschrijvivng = '" + beschrijving
-					+ "', cover = '" + cover + "', uitgavejaar = " + uitgavejaar + ", aanbieding = " + aanbieding
-					+ " where productid = " + id + ";");
+					+ "', cover = '" + cover + "', uitgavejaar = " + uitgavejaar + " where productid = " + id + "");
 			waarheid = true;
 			rsProduct.close();
 			con.close();
 			waarheid = true;
 		}
 		return waarheid;
+	}
+
+	@Override
+	public List<Product> geefAlleProductenMetCategorie(String categorie) throws SQLException {
+		List<Product> mijnProductenBijCategorie = new ArrayList<Product>();
+		Connection con = super.getConnection();
+		Statement st = con.createStatement();
+		System.out.println("select * from product where categorie = '" + categorie + "';");
+		ResultSet rsProduct = st.executeQuery("select * from product where categorie = '" + categorie + "'");
+		while (rsProduct.next()) {
+			mijnProductenBijCategorie.add(new Product(rsProduct.getInt(1), rsProduct.getString(2),
+					rsProduct.getString(5), rsProduct.getString(7), rsProduct.getString(5), rsProduct.getInt(8),
+					rsProduct.getString(6), rsProduct.getInt(3)));
+		}
+		rsProduct.close();
+		con.close();
+		return mijnProductenBijCategorie;
 	}
 
 }

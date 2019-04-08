@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import webshop.domain.Aanbieding;
-import webshop.domain.Product;
 import webshop.persistency.Tooldatabase;
 import webshop.persistency.dao.AanbiedingDao;
 
@@ -27,17 +26,13 @@ public class AanbiedingDaoOracleImplementatie extends Tooldatabase implements Aa
 		return mijnAanbiedingen;
 	}
 
-	public Aanbieding geefMijnAanbiedingen(Product prod) throws SQLException {
+	public Aanbieding geefMijnAanbiedingen(int id) throws SQLException {
 		Aanbieding mijnAanbieding = null;
 		Connection con = super.getConnection();
 		Statement st= con.createStatement();
-		ResultSet rsAanbieding=st.executeQuery("select * from Aanbieding where AANBIEDINGID = '" + prod.getProductID() +"'");
+		ResultSet rsAanbieding=st.executeQuery("select * from Aanbieding where AANBIEDINGID = '" + id +"'");
 		while(rsAanbieding.next()) {
 			mijnAanbieding = new Aanbieding(rsAanbieding.getInt(1), rsAanbieding.getDate(2), rsAanbieding.getDate(3), rsAanbieding.getInt(5));
-			System.out.println(mijnAanbieding.getId());
-			System.out.println(mijnAanbieding.getTotDatum());
-			System.out.println(mijnAanbieding.getVanDatum());
-			System.out.println(mijnAanbieding.getKortingsPercentage());
 		}
 		rsAanbieding.close();
 		con.close();

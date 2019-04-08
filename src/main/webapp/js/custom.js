@@ -275,37 +275,37 @@ $(document).ready(function()
 					poster:"images/featured_1.jpg"
 				},
 				{
-					title:"Carless Whispers",
-					artist:"George Michael",
-					album:"Best of George",
+					title:"Dubstep",
+					artist:"Bensound",
+					album:"DJ Mind",
 					mp3:"files/bensound-dubstep.mp3",
 					poster:"images/featured_2.jpg"
 				},
 				{
-					title:"La Bamba",
-					artist:"Los Lobos",
-					album:"LALALALA BAMBA",
+					title:"Sunny",
+					artist:"Bensound",
+					album:"Dublin Dub",
 					mp3:"files/bensound-sunny.mp3",
 					poster:"images/featured_3.jpg"
 				},
 				{
-					title:"Boogie Wonderland",
-					artist:"Earth, Wind & Fire",
-					album:"BOOGIEWOOGIE",
+					title:"Better Days",
+					artist:"Bensound",
+					album:"Ocean Vibes",
 					mp3:"files/bensound-betterdays.mp3",
 					poster:"images/featured_4.jpg"
 				},
 				{
-					title:"Toto",
-					artist:"Africa",
-					album:"Big 5",
+					title:"Dubstep",
+					artist:"Bensound",
+					album:"DJ Mind",
 					mp3:"files/bensound-dubstep.mp3",
 					poster:"images/featured_5.jpg"
 				},
 				{
-					title:"Rasputin",
-					artist:"Boney M",
-					album:"Boney Man",
+					title:"Sunny",
+					artist:"Bensound",
+					album:"Dublin Dub",
 					mp3:"files/bensound-sunny.mp3",
 					poster:"images/featured_6.jpg"
 				}

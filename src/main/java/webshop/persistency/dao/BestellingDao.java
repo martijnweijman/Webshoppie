@@ -9,6 +9,5 @@ public interface BestellingDao {
 	
 	List<Bestelling> geefAlleBestellingen() throws SQLException;
 	Bestelling geefMijnBestelling(int id) throws SQLException;
-	void verwerkBestelling(Bestelling best) throws SQLException;
 
 }

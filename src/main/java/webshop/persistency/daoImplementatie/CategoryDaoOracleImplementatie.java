@@ -17,7 +17,7 @@ public class CategoryDaoOracleImplementatie extends Tooldatabase implements Cate
 		List<Category> mijnCategory = new ArrayList<Category>();
 		Connection con = super.getConnection();
 		Statement st= con.createStatement();
-		ResultSet rsCategory=st.executeQuery("select * from Categorie");
+		ResultSet rsCategory=st.executeQuery("select * from categorie");
 		while(rsCategory.next()) {
 			mijnCategory.add(new Category(rsCategory.getString(1)));
 		}
@@ -30,7 +30,7 @@ public class CategoryDaoOracleImplementatie extends Tooldatabase implements Cate
 		Category mijnCategory = null;
 		Connection con = super.getConnection();
 		Statement st= con.createStatement();
-		ResultSet rsCategory=st.executeQuery("select * from Categorie where naam = '" + naam +"'");
+		ResultSet rsCategory=st.executeQuery("select * from Category where naam = '" + naam +"'");
 		while(rsCategory.next()) {
 			mijnCategory = new Category(rsCategory.getString(1));
 		}
