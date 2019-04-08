@@ -27,7 +27,7 @@ import webshop.persistency.daoImplementatie.ProductDaoOracleImplementatie;
 
 @Path("msg")
 public class OpvangResource {
-	
+
 	AanbiedingDao ADao = new AanbiedingDaoOracleImplementatie();
 	ProductDao PDao = new ProductDaoOracleImplementatie();
 
@@ -84,6 +84,22 @@ public class OpvangResource {
 		return Response.status(200).entity(array.toString()).build();
 	}
 
+	@GET
+	@Produces("application/json")
+	@Path("/catagorien")
+	public Response getAllcat() throws SQLException {
+
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		CategoryDao cd = new CategoryDaoOracleImplementatie();
+		for (Category c : cd.geefAlleCategorien()) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("Naam", c.getNaam());
+			jab.add(job);
+		}
+		JsonArray array = jab.build();
+		return Response.status(200).entity(array.toString()).build();
+	}
+
 	@DELETE
 	@RolesAllowed("admin")
 	@Path("{id}")
@@ -124,7 +140,7 @@ public class OpvangResource {
 		PDao.updateProduct(id, naam, artiest, prijs, categorie, uitgavejaar, beschrijving, cover, aanbieding);
 		return Response.ok().build();
 	}
-	
+
 //  Getten van specifieke aanbieding
   @GET
   @Produces("application/json")

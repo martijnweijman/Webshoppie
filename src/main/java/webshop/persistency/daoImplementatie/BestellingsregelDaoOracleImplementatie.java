@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import webshop.domain.Bestelling;
 import webshop.domain.Bestellingsregel;
 import webshop.persistency.Tooldatabase;
 import webshop.persistency.dao.BestellingsregelDao;
@@ -26,17 +27,23 @@ public class BestellingsregelDaoOracleImplementatie extends Tooldatabase impleme
 		return mijnBestellingsregels;
 	}
 
-	public Bestellingsregel geefMijnBestellingsregels(int id) throws SQLException {
-		Bestellingsregel mijnBestellingsregel = null;
+	public void geefMijnBestellingsregels(Bestelling best) throws SQLException {
 		Connection con = super.getConnection();
 		Statement st= con.createStatement();
-		ResultSet rsBestellingsregel=st.executeQuery("select * from Bestellingsregel where REGELID = '" + id +"'");
+		ResultSet rsBestellingsregel=st.executeQuery("select * from Bestellingsregel where BESTELLINGID = '" + best.getId() +"'");
 		while(rsBestellingsregel.next()) {
-			mijnBestellingsregel = new Bestellingsregel(rsBestellingsregel.getInt(1), rsBestellingsregel.getInt(3), rsBestellingsregel.getInt(4));
+			best.setMijnBestellingsregels(new Bestellingsregel(rsBestellingsregel.getInt(1), rsBestellingsregel.getInt(3), rsBestellingsregel.getInt(4)));
 		}
 		rsBestellingsregel.close();
 		con.close();
-		return mijnBestellingsregel;
+	}
+	
+	public void voegBestelregelToe(Bestellingsregel br) throws SQLException{
+		Connection con = super.getConnection();
+		Statement st= con.createStatement();
+		ResultSet rsBestelling=st.executeQuery("insert into bestellingregel values("+br.getMijnBestelling().getId()+","+br.getMijnProduct().getProductID()+"," +br.getAantal()+","+ br.getPrijs()+",BESTELLINGREGEL_SEQ.NEXTVAL)");
+		rsBestelling.close();
+		con.close();
 	}
 
 }
