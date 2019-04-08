@@ -20,7 +20,9 @@ import javax.ws.rs.core.Response;
 import webshop.domain.Aanbieding;
 import webshop.domain.Category;
 import webshop.domain.Product;
+import webshop.persistency.dao.CategoryDao;
 import webshop.persistency.dao.ProductDao;
+import webshop.persistency.daoImplementatie.CategoryDaoOracleImplementatie;
 import webshop.persistency.daoImplementatie.ProductDaoOracleImplementatie;
 
 @Path("msg")
@@ -75,6 +77,22 @@ public class OpvangResource {
 			job.add("beschrijving", p.getProductBeschrijving());
 //			job.add("cover", p.getCover());
 //			job.add("aanbieding", p.getMijnAanbieding());
+			jab.add(job);
+		}
+		JsonArray array = jab.build();
+		return Response.status(200).entity(array.toString()).build();
+	}
+	
+	@GET
+	@Produces("application/json")
+	@Path("/catagorien")
+	public Response getAllcat() throws SQLException {
+
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		CategoryDao cd = new CategoryDaoOracleImplementatie();
+		for (Category c : cd.geefAlleCategorien()) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("Naam", c.getNaam());
 			jab.add(job);
 		}
 		JsonArray array = jab.build();
