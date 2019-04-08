@@ -14,7 +14,7 @@ public class Product {
 	
 
 	public Product(int productID,String productNaam, String artiest, String cover, String mijnCategory, int uitgavejaar,
-			String productBeschrijving, int productPrijs) {
+			String productBeschrijving, double productPrijs) {
 		super();
 		this.productID = productID;
 		this.productNaam = productNaam;
@@ -27,7 +27,7 @@ public class Product {
 	}
 
 	public Product(int productID,String productNaam, String artiest, String cover, int uitgavejaar,
-			String productBeschrijving, int productPrijs, Aanbieding mijnAanbieding, String mijnCategory) {
+			String productBeschrijving, double productPrijs, Aanbieding mijnAanbieding, String mijnCategory) {
 		super();
 		this.productID = productID;
 		this.productNaam = productNaam;

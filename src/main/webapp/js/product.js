@@ -1,3 +1,26 @@
+var prijs = 0;
+var waarheid = false;
+
+function loadAanbiedingenProduct() {
+	  fetch("/webshop/rest/msg/aanbiedingen/producten")
+	  .then(response => response.json())
+	  .then(function(myJson) {
+		 var tabel = document.getElementById("tabel");
+		 
+		 for (const object of myJson) {
+			 
+			 if (object.id == window.sessionStorage.getItem("productid")) {
+			 
+				 var korting = "0." + object.kortingspercentage;
+				 var verschil = (object.prijs * korting);
+				 prijs = (object.prijs - verschil);
+				 waarheid = true;
+			 }
+		 }
+		 productInfo();
+	  });
+}
+
 function productInfo() {
 	let productId = window.sessionStorage.getItem("productid");
 	fetch("rest/msg/" + productId)
@@ -9,7 +32,11 @@ function productInfo() {
 			document.getElementById("productArtiest").innerHTML = object.artiest;
 //			document.getElementById("productCategorie").innerHTML = object.categorie;
 			document.getElementById("productBeschrijving").innerHTML = object.beschrijving;
-			document.getElementById("productPrijs").innerHTML = "€ " + object.prijs;
+			if (waarheid == false) {
+				document.getElementById("productPrijs").innerHTML = "€ " + object.prijs;
+			} else if (waarheid == true) {
+				document.getElementById("productPrijs").innerHTML = "€ " + prijs;
+			}
 			let btn = document.createElement("input");
 			btn.type = "button";
 			btn.value = "Koop";
