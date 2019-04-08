@@ -1,6 +1,7 @@
 package webshop.persistency.daoImplementatie;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,17 +28,21 @@ public class AccountDaoOracleImplementatie extends Tooldatabase implements Accou
 	}
 
 	public Account geefMijnAccount(int id) throws SQLException {
-		Account mijnAccount = null;
-		Connection con = super.getConnection();
-		Statement st= con.createStatement();
-		ResultSet rsAccount=st.executeQuery("select * from Account where ACCOUNTID = '" + id +"'");
-		while(rsAccount.next()) {
-			mijnAccount = new Account(rsAccount.getDate(1), rsAccount.getInt(3), rsAccount.getString(4),rsAccount.getString(5),rsAccount.getString(6),rsAccount.getString(7));
-		}
-		rsAccount.close();
-		con.close();
-		return mijnAccount;
-	}
+        Account mijnAccount = null;
+        PreparedStatement preparedStatement = null;
+
+        String selectSQL = "select * from Account where ACCOUNTID = ?";
+        Connection con = super.getConnection();
+        preparedStatement = con.prepareStatement(selectSQL);
+        preparedStatement.setInt(1, id);
+        ResultSet rs = preparedStatement.executeQuery();
+        while(rs.next()) {
+            mijnAccount = new Account(rs.getDate(1), rs.getInt(3), rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7));
+        }
+        rs.close();
+        con.close();
+        return mijnAccount;
+    }
 	
 	public String findRoleForAccount(String username, String password) throws SQLException {
 		System.out.println("Binnen Functie findRoleForAccount DaoImpl");
