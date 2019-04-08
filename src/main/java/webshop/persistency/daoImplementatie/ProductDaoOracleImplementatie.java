@@ -51,7 +51,7 @@ public class ProductDaoOracleImplementatie extends Tooldatabase implements Produ
 		if (ditProduct != null) {
 			Connection con = super.getConnection();
 			Statement st = con.createStatement();
-			ResultSet rsProduct = st.executeQuery("delete from Product where PRODUCTID = '" + ditProduct + "'");
+			ResultSet rsProduct = st.executeQuery("delete from Product where PRODUCTID = " + id);
 			waarheid = true;
 			rsProduct.close();
 			con.close();
@@ -79,9 +79,7 @@ public class ProductDaoOracleImplementatie extends Tooldatabase implements Produ
 			String beschrijving, String cover) throws SQLException {
 		boolean waarheid = false;
 		Product ditProduct = geefEenProduct(id);
-		System.out.println("Update1");
 		if (ditProduct != null) {
-			System.out.println("Update2");
 			Connection con = super.getConnection();
 			Statement st = con.createStatement();
 			ResultSet rsProduct = st.executeQuery("update product set albumnaam = '" + naam + "', prijs = " + prijs

@@ -94,11 +94,8 @@ public class OpvangResource {
 	@Path("{id}")
 	@Produces("application/json")
 	public Response deletePersoon(@PathParam("id") int id) throws SQLException {
-		if (!PDao.deleteProduct(id)) {
-			return Response.status(404).build();
-		} else {
-			return null;
-		}
+		PDao.deleteProduct(id);
+		return Response.ok().build();
 
 	}
 
@@ -124,9 +121,6 @@ public class OpvangResource {
 			@FormParam("artiest") String artiest, @FormParam("prijs") double prijs,
 			@FormParam("categorie") String categorie, @FormParam("uitgavejaar") int uitgavejaar,
 			@FormParam("beschrijving") String beschrijving, @FormParam("cover") String cover) throws SQLException {
-		
-		System.out.println("IK KOM HIERRR");
-		System.out.println(id + "   " + naam + "   " + artiest + "   " + prijs + "   " + categorie + "   " + uitgavejaar + "   " + beschrijving + "   " + cover);
 		PDao.updateProduct(id, naam, artiest, prijs, categorie, uitgavejaar, beschrijving, cover);
 		return Response.ok().build();
 	}
