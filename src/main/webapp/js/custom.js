@@ -13,6 +13,8 @@
 9. Init Parallax
 ******************************/
 
+loadAanbiedingen();
+
 $(document).ready(function()
 {
 	"use strict";
@@ -418,3 +420,47 @@ $(document).ready(function()
 	}
 
 });
+
+function loadAanbiedingen() {
+	  fetch("/webshop/rest/msg/aanbiedingen/producten")
+	  .then(response => response.json())
+	  .then(function(myJson) {
+		 var tabel = document.getElementById("tabel");
+		 
+		 for (const object of myJson) {
+			 var rij = tabel.insertRow(1);
+			 
+			 var cell1 = rij.insertCell(0);
+			 var cell2 = rij.insertCell(1);
+			 var cell3 = rij.insertCell(2);
+			 var cell4 = rij.insertCell(3);
+			 var cell5 = rij.insertCell(4);
+			 var cell6 = rij.insertCell(5);
+			 var cell7 = rij.insertCell(6);
+			 var cell8 = rij.insertCell(7);
+			 var cell9 = rij.insertCell(8);
+			 
+			 cell1.innerHTML = object.id;
+			 cell2.innerHTML = object.naam;
+			 cell3.innerHTML = object.artiest;
+			 cell4.innerHTML = object.uitgavejaar;
+			 cell5.innerHTML = object.beschrijving;
+			 cell6.innerHTML = object.categorie;
+			 var korting = "0." + object.kortingspercentage;
+			 var verschil = (object.prijs * korting);
+			 var prijs = (object.prijs - verschil);
+			 cell7.innerHTML = '€' + prijs;
+			 cell8.innerHTML = object.kortingspercentage + "%";
+			 cell9.innerHTML = '<input class="koopbtn" id="'+ object.id + '" type="submit" value="Koop">';
+			 
+			 var valueKoop = document.querySelector("#tabel input[value='Koop']");
+			valueKoop.addEventListener("click", redirectFunc);
+			
+			 
+		 }
+	  });
+}
+
+function redirectFunc(){
+	window.location.href = "http://localhost:8081/webshop/" + this.id + ".html"
+}

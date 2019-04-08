@@ -79,11 +79,13 @@ public class ProductDaoOracleImplementatie extends Tooldatabase implements Produ
 			String beschrijving, String cover) throws SQLException {
 		boolean waarheid = false;
 		Product ditProduct = geefEenProduct(id);
+		System.out.println("Update1");
 		if (ditProduct != null) {
+			System.out.println("Update2");
 			Connection con = super.getConnection();
 			Statement st = con.createStatement();
 			ResultSet rsProduct = st.executeQuery("update product set albumnaam = '" + naam + "', prijs = " + prijs
-					+ ", categorie = '" + categorie + "', artiest = '" + artiest + "', beschrijvivng = '" + beschrijving
+					+ ", categorie = '" + categorie + "', artiest = '" + artiest + "', beschrijving = '" + beschrijving
 					+ "', cover = '" + cover + "', uitgavejaar = " + uitgavejaar + " where productid = " + id + "");
 			waarheid = true;
 			rsProduct.close();

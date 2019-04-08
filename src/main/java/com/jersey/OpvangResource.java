@@ -124,7 +124,9 @@ public class OpvangResource {
 			@FormParam("artiest") String artiest, @FormParam("prijs") double prijs,
 			@FormParam("categorie") String categorie, @FormParam("uitgavejaar") int uitgavejaar,
 			@FormParam("beschrijving") String beschrijving, @FormParam("cover") String cover) throws SQLException {
-
+		
+		System.out.println("IK KOM HIERRR");
+		System.out.println(id + "   " + naam + "   " + artiest + "   " + prijs + "   " + categorie + "   " + uitgavejaar + "   " + beschrijving + "   " + cover);
 		PDao.updateProduct(id, naam, artiest, prijs, categorie, uitgavejaar, beschrijving, cover);
 		return Response.ok().build();
 	}

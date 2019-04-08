@@ -4,7 +4,7 @@
  * [Table of Contents] 1. Vars and Inits 2. Set Header 3. Init Menu 4. Init
  * Single Player
  ******************************************************************************/
-loadProducten();
+loadAanbiedingenShop();
 loadCategorie();
 $(document).ready(function()
 {
@@ -139,8 +139,10 @@ var span = document.getElementsByClassName("close")[0];
      }
  }
 
-function loadProducten() {
-	  fetch("rest/msg/producten")
+ var producteninaanbieding = []
+ 
+ function loadAanbiedingenShop() {
+	  fetch("/webshop/rest/msg/aanbiedingen/producten")
 	  .then(response => response.json())
 	  .then(function(myJson) {
 		 var tabel = document.getElementById("tabel");
@@ -157,18 +159,20 @@ function loadProducten() {
 			 var cell7 = rij.insertCell(6);
 			 var cell8 = rij.insertCell(7);
 			 var cell9 = rij.insertCell(8);
-			 var cell10 = rij.insertCell(9);
 			 
+			 producteninaanbieding.push(object.id)
 			 cell1.innerHTML = object.id;
 			 cell2.innerHTML = object.naam;
 			 cell3.innerHTML = object.artiest;
 			 cell4.innerHTML = object.uitgavejaar;
 			 cell5.innerHTML = object.beschrijving;
 			 cell6.innerHTML = object.categorie;
-			 cell7.innerHTML = '€' + object.prijs.toFixed(2);
-			 cell8.innerHTML =  object.aanbieding;
-			 cell9.innerHTML = '<input class="koopbtn" id="'+ object.id + '" type="submit" value="Koop">';
-			 cell10.innerHTML = '<input class="wijzigbtn" id="'+ object.id + '" type="submit" value="Wijzig">';
+			 var korting = "0." + object.kortingspercentage;
+			 var verschil = (object.prijs * korting);
+			 var prijs = (object.prijs - verschil);
+			 cell7.innerHTML = '€' + prijs;
+			 cell8.innerHTML = '<input class="koopbtn" id="'+ object.id + '" type="submit" value="Koop">';
+			 cell9.innerHTML = '<input class="wijzigbtn" id="'+ object.id + '" type="submit" value="Wijzig">';
 			 
 			 var valueKoop = document.querySelector("#tabel input[value='Koop']");
 			valueKoop.addEventListener("click", redirectFunc);
@@ -176,6 +180,48 @@ function loadProducten() {
 			 var valueWijzig = document.querySelector("#tabel input[value='Wijzig']");
 			 valueWijzig.addEventListener("click", wijzigFunc);
 			 
+		 }
+		 loadProducten();
+	  });
+}
+ 
+function loadProducten() {
+	  fetch("rest/msg/producten")
+	  .then(response => response.json())
+	  .then(function(myJson) {
+		 var tabel = document.getElementById("tabel");
+		 
+		 for (const object of myJson) {
+			 
+			 if (producteninaanbieding.includes(object.id) == false) {
+				 var rij = tabel.insertRow(1);
+				 
+				 var cell1 = rij.insertCell(0);
+				 var cell2 = rij.insertCell(1);
+				 var cell3 = rij.insertCell(2);
+				 var cell4 = rij.insertCell(3);
+				 var cell5 = rij.insertCell(4);
+				 var cell6 = rij.insertCell(5);
+				 var cell7 = rij.insertCell(6);
+				 var cell8 = rij.insertCell(7);
+				 var cell9 = rij.insertCell(8);
+				 
+				 cell1.innerHTML = object.id;
+				 cell2.innerHTML = object.naam;
+				 cell3.innerHTML = object.artiest;
+				 cell4.innerHTML = object.uitgavejaar;
+				 cell5.innerHTML = object.beschrijving;
+				 cell6.innerHTML = object.categorie;
+				 cell7.innerHTML = '€' + object.prijs.toFixed(2);
+				 cell8.innerHTML = '<input class="koopbtn" id="'+ object.id + '" type="submit" value="Koop">';
+				 cell9.innerHTML = '<input class="wijzigbtn" id="'+ object.id + '" type="submit" value="Wijzig">';
+				 
+				 var valueKoop = document.querySelector("#tabel input[value='Koop']");
+				valueKoop.addEventListener("click", redirectFunc);
+				
+				 var valueWijzig = document.querySelector("#tabel input[value='Wijzig']");
+				 valueWijzig.addEventListener("click", wijzigFunc);
+			 }
 		 }
 	  });
 }
@@ -191,8 +237,8 @@ function wijzigFunc(){
  	.then(function(myJson){
 		 for (const object of myJson) {
 	 	document.getElementById("wijzigGegevens").innerHTML = '<h2> Artikel Wijzigen</h2>';
- 		document.getElementById("wijzigGegevens").innerHTML += 'Product ID: <input id="productnr" name="productnr" type="text" value="'+ object.id +  '" readonly><br><br>';
- 		document.getElementById("wijzigGegevens").innerHTML += 'Songnaam: <input name="songnaam" type="text" value="'+ object.naam +  '"><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Product ID: <input id="productnr" name="id" type="text" value="'+ object.id +  '" readonly><br><br>';
+ 		document.getElementById("wijzigGegevens").innerHTML += 'Songnaam: <input name="naam" type="text" value="'+ object.naam +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += 'Artiest: <input name="artiest" type="text" value="'+ object.artiest +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += 'Cover: <input name="cover" type="text" value="'+ object.cover +  '"><br><br>';
  		document.getElementById("wijzigGegevens").innerHTML += 'Uitgavejaar: <input name="uitgavejaar" type="number" value="'+ object.uitgavejaar +  '"><br><br>';
