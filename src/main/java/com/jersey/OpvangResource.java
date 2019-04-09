@@ -261,27 +261,26 @@ public class OpvangResource {
 	@Produces("application/json")
 	@Consumes("application/json")
 	public Response addBestelling(
-			@FormParam("bestellingid") int bestellingid,
 			@FormParam("afleveradres") int afleveradres,
 			@FormParam("accountid") int accountid) throws SQLException {
 		BestellingDao BDao = new BestellingDaoOracleImplementatie();
-		Boolean product = BDao.addBestelling(bestellingid, afleveradres, accountid);
+		Boolean bestelling = BDao.addBestelling(afleveradres, accountid);
 		return Response.ok().build();
 	}
 	
-//	Posten van adres
-	@POST
-//	@RolesAllowed("klant")
-	@Produces("application/json")
-	@Consumes("application/json")
-	public Response addAdres(
-			@FormParam("id") int id,
-			@FormParam("straat") String straat,
-			@FormParam("straatnummer") int straatnummer) throws SQLException {
-		AdresDao ADao = new AdresDaoOracleImplementatie();
-		Boolean adres = ADao.addAdres(id, straat, straatnummer);
-		return Response.ok().build();
-	}
+////	Posten van adres
+//	@POST
+////	@RolesAllowed("klant")
+//	@Produces("application/json")
+//	@Consumes("application/json")
+//	public Response addAdres(
+//			@FormParam("id") int id,
+//			@FormParam("straat") String straat,
+//			@FormParam("straatnummer") int straatnummer) throws SQLException {
+//		AdresDao ADao = new AdresDaoOracleImplementatie();
+//		Boolean adres = ADao.addAdres(id, straat, straatnummer);
+//		return Response.ok().build();
+//	}
 	
 //	Posten van bestelregel
 	@POST
@@ -292,10 +291,9 @@ public class OpvangResource {
 			@FormParam("bestellingid") int bestellingid,
 			@FormParam("productid") int productid,
 			@FormParam("aantal") int aantal,
-			@FormParam("totaalprijs") double totaalprijs,
-			@FormParam("regelid") int regelid) throws SQLException {
+			@FormParam("totaalprijs") double totaalprijs) throws SQLException {
 		BestellingsregelDao ADao = new BestellingsregelDaoOracleImplementatie();
-		Boolean adres = ADao.addBestellingsregel(bestellingid, productid, aantal, totaalprijs, regelid);
+		Boolean adres = ADao.addBestelRegel(bestellingid, productid, aantal, totaalprijs);
 		return Response.ok().build();
 	}
 	

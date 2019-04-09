@@ -9,5 +9,6 @@ public interface BestellingDao {
 	
 	List<Bestelling> geefAlleBestellingen() throws SQLException;
 	Bestelling geefMijnBestelling(int id) throws SQLException;
+	Boolean addBestelling(int afleveradres, int accountid);
 
 }

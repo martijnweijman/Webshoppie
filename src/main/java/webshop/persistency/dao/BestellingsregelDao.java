@@ -8,5 +8,6 @@ public interface BestellingsregelDao {
 	
 	List<Bestellingsregel> geefAlleBestellingsregels() throws SQLException;
 	Bestellingsregel geefMijnBestellingsregels(int id) throws SQLException;
+	Boolean addBestelRegel(int bestellingid, int productid, int aantal, double totaalprijs);
 
 }
