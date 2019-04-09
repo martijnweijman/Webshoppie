@@ -212,6 +212,12 @@ function verwerkBestelling(){
 }
 
 
+function addBestellingFunc() {
+	var winkelwagen = window.localStorage.getItem("shoppingCart")
 
+    fetch("webshop/rest/msg/producten", { method: 'POST', body: winkelwagen })
+        .then(response => response.json())
+        .then(function (myJson) {console.log(myJson); });
+}
 
 
