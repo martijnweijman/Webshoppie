@@ -24,9 +24,15 @@ import webshop.domain.Aanbieding;
 import webshop.domain.Category;
 import webshop.domain.Product;
 import webshop.persistency.dao.AanbiedingDao;
+import webshop.persistency.dao.AdresDao;
+import webshop.persistency.dao.BestellingDao;
+import webshop.persistency.dao.BestellingsregelDao;
 import webshop.persistency.dao.CategoryDao;
 import webshop.persistency.dao.ProductDao;
 import webshop.persistency.daoImplementatie.AanbiedingDaoOracleImplementatie;
+import webshop.persistency.daoImplementatie.AdresDaoOracleImplementatie;
+import webshop.persistency.daoImplementatie.BestellingDaoOracleImplementatie;
+import webshop.persistency.daoImplementatie.BestellingsregelDaoOracleImplementatie;
 import webshop.persistency.daoImplementatie.CategoryDaoOracleImplementatie;
 import webshop.persistency.daoImplementatie.ProductDaoOracleImplementatie;
 
@@ -254,12 +260,43 @@ public class OpvangResource {
 //	@RolesAllowed("klant")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Response addBestelling(@FormParam("id") int id, @FormParam("naam") String naam,
-			@FormParam("artiest") String artiest, @FormParam("prijs") double prijs,
-			@FormParam("categorie") String categorie, @FormParam("uitgavejaar") int uitgavejaar,
-			@FormParam("beschrijving") String beschrijving, @FormParam("cover") String cover) throws SQLException {
-
-		Boolean product = PDao.addProduct(id, naam, artiest, prijs, categorie, uitgavejaar, beschrijving, cover);
+	public Response addBestelling(
+			@FormParam("bestellingid") int bestellingid,
+			@FormParam("afleveradres") int afleveradres,
+			@FormParam("accountid") int accountid) throws SQLException {
+		BestellingDao BDao = new BestellingDaoOracleImplementatie();
+		Boolean product = BDao.addBestelling(bestellingid, afleveradres, accountid);
 		return Response.ok().build();
 	}
+	
+//	Posten van adres
+	@POST
+//	@RolesAllowed("klant")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Response addAdres(
+			@FormParam("id") int id,
+			@FormParam("straat") String straat,
+			@FormParam("straatnummer") int straatnummer) throws SQLException {
+		AdresDao ADao = new AdresDaoOracleImplementatie();
+		Boolean adres = ADao.addAdres(id, straat, straatnummer);
+		return Response.ok().build();
+	}
+	
+//	Posten van bestelregel
+	@POST
+//	@RolesAllowed("klant")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Response addBestelregel(
+			@FormParam("bestellingid") int bestellingid,
+			@FormParam("productid") int productid,
+			@FormParam("aantal") int aantal,
+			@FormParam("totaalprijs") double totaalprijs,
+			@FormParam("regelid") int regelid) throws SQLException {
+		BestellingsregelDao ADao = new BestellingsregelDaoOracleImplementatie();
+		Boolean adres = ADao.addBestellingsregel(bestellingid, productid, aantal, totaalprijs, regelid);
+		return Response.ok().build();
+	}
+	
 }
