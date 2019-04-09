@@ -18,9 +18,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import webshop.domain.Aanbieding;
+import webshop.domain.Bestellingsregel;
 import webshop.domain.Category;
 import webshop.domain.Product;
 import webshop.persistency.dao.AanbiedingDao;
@@ -258,7 +260,7 @@ public class OpvangResource {
 //	Posten van bestelling
 	@POST
 //	@RolesAllowed("klant")
-
+	@Path("/addbestelling")
 	public Response addBestelling(
 			@FormParam("afleveradres") int afleveradres,
 			@FormParam("accountid") int accountid) throws SQLException {
@@ -282,16 +284,27 @@ public class OpvangResource {
 //	}
 	
 //	Posten van bestelregel
-	@POST
+//	@POST
 //	@RolesAllowed("klant")
 
-	public Response addBestelregel(
-			@FormParam("bestellingid") int bestellingid,
-			@FormParam("productid") int productid,
-			@FormParam("aantal") int aantal,
-			@FormParam("totaalprijs") double totaalprijs) throws SQLException {
-		BestellingsregelDao ADao = new BestellingsregelDaoOracleImplementatie();
-		Boolean adres =ADao.addBestelRegel(bestellingid, productid, aantal, totaalprijs);
+//	public Response addBestelregel(
+//			@FormParam("bestellingid") int bestellingid,
+//			@FormParam("productid") int productid,
+//			@FormParam("aantal") int aantal,
+//			@FormParam("totaalprijs") double totaalprijs) throws SQLException {
+//		BestellingsregelDao ADao = new BestellingsregelDaoOracleImplementatie();
+//		Boolean adres =ADao.addBestelRegel(bestellingid, productid, aantal, totaalprijs);
+//		return Response.ok().build();
+//	}
+
+	@POST
+//	@RolesAllowed("klant")
+	@Path("/addbestelregel")
+	@Consumes({MediaType.APPLICATION_JSON})
+	public Response addBestelregel(Bestellingsregel regel) throws SQLException {
+		System.out.println(regel.getId());
+		//BestellingsregelDao ADao = new BestellingsregelDaoOracleImplementatie();
+		//Boolean adres =ADao.addBestelRegel(bestellingid, productid, aantal, totaalprijs);
 		return Response.ok().build();
 	}
 	
