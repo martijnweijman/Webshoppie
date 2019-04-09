@@ -250,16 +250,16 @@ public class OpvangResource {
 	}
 
 //	Posten van bestelling
-//	@POST
+	@POST
 //	@RolesAllowed("klant")
-//	@Produces("application/json")
-//	@Consumes("application/json")
-//	public Response addBestelling(@FormParam("id") int id, @FormParam("naam") String naam,
-//			@FormParam("artiest") String artiest, @FormParam("prijs") double prijs,
-//			@FormParam("categorie") String categorie, @FormParam("uitgavejaar") int uitgavejaar,
-//			@FormParam("beschrijving") String beschrijving, @FormParam("cover") String cover) throws SQLException {
-//
-//		Boolean product = PDao.addProduct(id, naam, artiest, prijs, categorie, uitgavejaar, beschrijving, cover);
-//		return Response.ok().build();
-//	}
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Response addBestelling(@FormParam("id") int id, @FormParam("naam") String naam,
+			@FormParam("artiest") String artiest, @FormParam("prijs") double prijs,
+			@FormParam("categorie") String categorie, @FormParam("uitgavejaar") int uitgavejaar,
+			@FormParam("beschrijving") String beschrijving, @FormParam("cover") String cover) throws SQLException {
+
+		Boolean product = PDao.addProduct(id, naam, artiest, prijs, categorie, uitgavejaar, beschrijving, cover);
+		return Response.ok().build();
+	}
 }
