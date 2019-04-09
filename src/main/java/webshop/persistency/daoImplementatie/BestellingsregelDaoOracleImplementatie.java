@@ -39,7 +39,7 @@ public class BestellingsregelDaoOracleImplementatie extends Tooldatabase impleme
 		return mijnBestellingsregel;
 	}
 	
-	public boolean addBestelRegel(int bestellingID, int productID, int aantal, double totaalPrijs) throws SQLException {
+	public Boolean addBestelRegel(int bestellingID, int productID, int aantal, double totaalPrijs) throws SQLException {
         boolean waarheid = false;
         Connection con = super.getConnection();
         Statement st = con.createStatement();

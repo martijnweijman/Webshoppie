@@ -258,8 +258,7 @@ public class OpvangResource {
 //	Posten van bestelling
 	@POST
 //	@RolesAllowed("klant")
-	@Produces("application/json")
-	@Consumes("application/json")
+
 	public Response addBestelling(
 			@FormParam("afleveradres") int afleveradres,
 			@FormParam("accountid") int accountid) throws SQLException {
@@ -285,15 +284,14 @@ public class OpvangResource {
 //	Posten van bestelregel
 	@POST
 //	@RolesAllowed("klant")
-	@Produces("application/json")
-	@Consumes("application/json")
+
 	public Response addBestelregel(
 			@FormParam("bestellingid") int bestellingid,
 			@FormParam("productid") int productid,
 			@FormParam("aantal") int aantal,
 			@FormParam("totaalprijs") double totaalprijs) throws SQLException {
 		BestellingsregelDao ADao = new BestellingsregelDaoOracleImplementatie();
-		Boolean adres = ADao.addBestelRegel(bestellingid, productid, aantal, totaalprijs);
+		Boolean adres =ADao.addBestelRegel(bestellingid, productid, aantal, totaalprijs);
 		return Response.ok().build();
 	}
 	

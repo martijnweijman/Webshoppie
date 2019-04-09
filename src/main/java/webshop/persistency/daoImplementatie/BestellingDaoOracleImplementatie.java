@@ -39,7 +39,7 @@ public class BestellingDaoOracleImplementatie extends Tooldatabase implements Be
 		return mijnBestelling;
 	}
 	
-	public boolean addBestelling(int accountID, int adresID) throws SQLException {
+	public Boolean addBestelling(int accountID, int adresID) throws SQLException {
         boolean waarheid = false;
         Connection con = super.getConnection();
         Statement st = con.createStatement();
